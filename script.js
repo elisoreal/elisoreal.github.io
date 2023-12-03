@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Greet the user on page load
     output.innerHTML += 'Welcome, cutie!\n';
-    output.innerHTML += 'This is the cutest terminal ever made by eli! Type 'help' for more info!\n';
+    output.innerHTML += 'This is the cutest terminal ever made by eli! Type help for more info!\n';
 
     // Set the terminal header
     terminalHeader.innerHTML = "Cute Terminal";
