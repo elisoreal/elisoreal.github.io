@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 output.innerHTML += 'Available commands: help, about, cute, clear, date, time\n';
                 break;
             case 'about':
-                output.innerHTML += 'This is the cutest terminal ever made! It has a kawaii theme and a bunch of cute decorations. Enjoy!\n';
+                output.innerHTML += 'This is the cutest terminal ever made! It has a kawaii theme! Enjoy!\n';
                 break;
             case 'cute':
                 output.innerHTML += 'You are the cutest person ever! Stay adorable!\n';
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
             default:
                 if (commandName === 'mybf') {
-                    output.innerHTML += 'Matty B Raps is the cutest cutie on earth and means so much to me.\n';
+                    output.innerHTML += 'matty b raps is the cutest cutie on earth and means so much to me.\n';
                 } else {
                     output.innerHTML += `Command not found: ${command}\n`;
                 }
