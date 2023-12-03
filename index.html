@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>eli's Terminal</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="script.js"></script>
+    <style>
+        #custom-background-upload {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="terminal-header" id="terminal-header">
+            eli's Terminal
+        </div>
+        <div class="terminal-screen">
+            <pre id="output"></pre>
+            <div class="terminal-input">
+                <span>$</span>
+                <input type="text" id="command-input" autofocus>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Specify the background image URL here
+        const backgroundImageURL = 'https://i.pinimg.com/564x/10/07/c2/1007c2520bda3a7737eecf1f7b5dc072.jpg';
+
+        document.body.style.backgroundImage = `url(${backgroundImageURL})`;
+
+        // Add a function to reset the background to the default
+        function resetBackground() {
+            document.body.style.backgroundImage = "none";
+        }
+    </script>
+</body>
+</html>
+
