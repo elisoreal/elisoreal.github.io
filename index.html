@@ -1,41 +1,667 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="https://i.pinimg.com/564x/11/5a/e0/115ae0a653cbdd5424099b99bdfb5609.jpg">
-    <title>eli's Terminal</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Retro Site</title>
     <style>
-        #custom-background-upload {
-            display: none;
+        /* =================== */
+        /* CUSTOMIZABLE COLORS */
+        /* =================== */
+        :root {
+            --main-bg-color: #0a0014;
+            --secondary-bg-color: #200037;
+            --main-text-color: #e9c2ff;
+            --accent-color: #9f43ff;
+            --highlight-color: #ff66c4;
+        }
+
+        /* ======================= */
+        /* REST OF THE SITE STYLES */
+        /* ======================= */
+        @font-face {
+            font-family: 'VCR OSD Mono';
+            src: url('https://cdnjs.cloudflare.com/ajax/libs/vcr-osd-mono/1.0.1/VCR_OSD_MONO_1.001.ttf') format('truetype');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'VCR OSD Mono', monospace;
+            color: var(--main-text-color);
+        }
+
+        body {
+            background-color: var(--main-bg-color);
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            border: 2px solid var(--accent-color);
+            padding: 20px;
+            margin: 20px 0;
+            background-color: rgba(16, 0, 26, 0.8);
+            box-shadow: 5px 5px 0px var(--accent-color);
+            position: relative;
+            z-index: 10;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.03) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
+            opacity: 0.3;
+            z-index: 999;
+        }
+
+        @keyframes scanline {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        h1, h2, h3 {
+            color: var(--highlight-color);
+            text-shadow: 3px 3px var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .motd {
+            background-color: var(--secondary-bg-color);
+            padding: 15px;
+            border: 2px dashed var(--accent-color);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.2em;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.7; }
+        }
+
+        .cat-pic {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            margin: 10px;
+            border: 3px solid var(--accent-color);
+            transform: rotate(-2deg);
+            transition: transform 0.3s;
+        }
+
+        .cat-pic:hover {
+            transform: rotate(2deg) scale(1.05);
+        }
+
+        .cat-pics {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .section-title::before, .section-title::after {
+            content: "☆";
+            margin: 0 10px;
+            color: var(--accent-color);
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        a {
+            color: var(--highlight-color);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--highlight-color);
+            transition: all 0.3s;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+            border-bottom: 1px solid var(--accent-color);
+        }
+
+        .blink {
+            animation: textBlink 1s infinite;
+        }
+
+        @keyframes textBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+
+        /* Cursor effect */
+        .cursor::after {
+            content: "_";
+            animation: cursor 1s infinite;
+        }
+
+        @keyframes cursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Space background */
+        .space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--main-bg-color);
+            overflow: hidden;
+        }
+
+        /* Stars */
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Shooting stars */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
+            animation: shoot 8s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translateX(-100px) translateY(0) rotate(45deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            20% {
+                transform: translateX(100vw) translateY(100vh) rotate(45deg);
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* Black Hole - More realistic with event horizon */
+        .black-hole-container {
+            position: absolute;
+            z-index: -2;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .black-hole-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            animation: pulsate 15s infinite ease-in-out;
+        }
+
+        .black-hole-shadow {
+            position: absolute;
+            top: -15%;
+            left: -15%;
+            width: 130%;
+            height: 130%;
+            border-radius: 50%;
+            background: radial-gradient(
+                circle, 
+                rgba(24, 0, 36, 0.2) 10%, 
+                rgba(75, 0, 130, 0.15) 30%, 
+                rgba(127, 0, 255, 0.1) 50%, 
+                rgba(127, 0, 255, 0) 70%
+            );
+            filter: blur(10px);
+            z-index: -3;
+        }
+
+        .black-hole-accretion {
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            background: transparent;
+            box-shadow: 0 0 60px rgba(255, 102, 196, 0.3);
+            z-index: -1;
+            animation: rotate-accretion 20s linear infinite;
+        }
+
+        .black-hole-accretion::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                rgba(255, 102, 196, 0),
+                rgba(255, 102, 196, 0.3),
+                rgba(159, 67, 255, 0.5),
+                rgba(111, 0, 255, 0.3),
+                rgba(111, 0, 255, 0)
+            );
+            filter: blur(8px);
+            opacity: 0.8;
+            animation: rotate-accretion-reverse 15s linear infinite;
+        }
+
+        @keyframes rotate-accretion {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes rotate-accretion-reverse {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .black-hole-event-horizon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(
+                circle,
+                rgba(0, 0, 0, 1) 40%,
+                rgba(24, 0, 36, 0.8) 60%,
+                rgba(75, 0, 130, 0.5) 70%,
+                rgba(127, 0, 255, 0.2) 80%,
+                rgba(127, 0, 255, 0) 100%
+            );
+            box-shadow: 
+                inset 0 0 20px rgba(0, 0, 0, 1),
+                0 0 15px rgba(127, 0, 255, 0.5);
+            z-index: 1;
+            animation: pulse-horizon 8s infinite alternate;
+        }
+
+        @keyframes pulse-horizon {
+            0% { box-shadow: inset 0 0 20px rgba(0, 0, 0, 1), 0 0 15px rgba(127, 0, 255, 0.5); }
+            100% { box-shadow: inset 0 0 30px rgba(0, 0, 0, 1), 0 0 25px rgba(127, 0, 255, 0.7); }
+        }
+
+        .light-distortion {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(0, 0, 0, 0) 30%,
+                rgba(127, 0, 255, 0.05) 50%,
+                rgba(127, 0, 255, 0) 70%
+            );
+            border-radius: 50%;
+            filter: blur(20px);
+            z-index: -2;
+            animation: rotate-light 30s linear infinite;
+        }
+
+        @keyframes rotate-light {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .gravity-lens {
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            border-radius: 50%;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(0, 0, 0, 0) 30%,
+                rgba(75, 0, 130, 0.03) 40%,
+                rgba(127, 0, 255, 0.03) 50%,
+                rgba(0, 0, 0, 0) 60%
+            );
+            filter: blur(30px);
+            z-index: -5;
+            animation: lens-shift 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes lens-shift {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        @keyframes pulsate {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Galaxy cloud */
+        .galaxy {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center, rgba(111, 0, 255, 0.2) 0%, rgba(111, 0, 255, 0) 70%);
+            filter: blur(10px);
+            opacity: 0.3;
+            animation: rotate 100s linear infinite;
+            transform-origin: center center;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Nebula */
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center, 
+                rgba(255, 102, 196, 0.1) 0%, 
+                rgba(159, 67, 255, 0.2) 30%, 
+                rgba(111, 0, 255, 0.1) 60%, 
+                rgba(0, 0, 0, 0) 100%);
+            filter: blur(20px);
+            opacity: 0.2;
+            transform-origin: center center;
+            animation: nebula-pulse 20s infinite alternate;
+        }
+
+        @keyframes nebula-pulse {
+            0% { transform: scale(1); filter: blur(20px); }
+            50% { transform: scale(1.1); filter: blur(25px); }
+            100% { transform: scale(1); filter: blur(20px); }
         }
     </style>
 </head>
 <body>
-    <div class="terminal">
-        <div class="terminal-header" id="terminal-header">
-            eli's Terminal
+    <!-- CUSTOM ELEMENTS (Edit these!) -->
+    <script>
+        // =====================
+        // EDITABLE CONTENT HERE
+        // =====================
+        
+        // Message of the day
+        const messageOfTheDay = "kitties r awsum";
+        
+        // Your name
+        const yourName = "Cat Lover";
+        
+        // Your cat images (replace these with your own image URLs)
+        const catImages = [
+            "/api/placeholder/200/200", // Cat image 1
+            "/api/placeholder/200/200", // Cat image 2
+            "/api/placeholder/200/200"  // Cat image 3
+        ];
+        
+        // Your interests (add or remove items as needed)
+        const interests = [
+            "Cats (obviously!)",
+            "Gaming",
+            "Space exploration",
+            "Sci-fi movies & books",
+            "Sleeping (professional bedrotter)"
+        ];
+        
+        // Your social links (edit or remove as needed)
+        const socialLinks = [
+            { name: "Discord", url: "#" },
+            { name: "Twitter", url: "#" },
+            { name: "GitHub", url: "#" }
+        ];
+    </script>
+    
+    <!-- Space background -->
+    <div class="space-background" id="space-background"></div>
+
+    <!-- Scanline effect -->
+    <div class="scanline"></div>
+
+    <!-- Content starts here -->
+    <div class="container">
+        <div class="motd" id="motd">
+            <span class="blink">></span> <span id="motd-text"></span> <span class="blink"><</span>
         </div>
-        <div class="terminal-screen">
-            <pre id="output"></pre>
-            <div class="terminal-input">
-                <span>$</span>
-                <input type="text" id="command-input" autofocus>
+
+        <h1 class="cursor" id="title">Loading...</h1>
+
+        <div class="section">
+            <h2 class="section-title">About Me</h2>
+            <p>I love cats!! They are the most divine species to ever grace us with their presence. I'm very interested in space and everything sci-fi really. I love to sleep a lot (bedrotter).</p>
+            <p>I'm a freaky gooner most of the time and just know that I'm a pretty boring person to talk to.</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">My Cats</h2>
+            <div class="cat-pics" id="cat-pics">
+                <!-- Cat images will be inserted here by JavaScript -->
             </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">My Interests</h2>
+            <ul id="interests-list">
+                <!-- Interests will be inserted here by JavaScript -->
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Find Me</h2>
+            <ul id="social-links">
+                <!-- Social links will be inserted here by JavaScript -->
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 • Made with <span style="color: var(--highlight-color);">♥</span> and retro vibes</p>
+            <p>Last updated: <span id="last-updated"></span></p>
         </div>
     </div>
 
     <script>
-        // Specify the background image URL here
-        const backgroundImageURL = 'https://i.pinimg.com/564x/10/07/c2/1007c2520bda3a7737eecf1f7b5dc072.jpg';
+        // Display the message of the day
+        document.getElementById('motd-text').textContent = messageOfTheDay;
+        
+        // Set the title
+        document.getElementById('title').textContent = yourName + "'s Retro Space";
+        
+        // Add cat images
+        const catPicsContainer = document.getElementById('cat-pics');
+        catImages.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.className = 'cat-pic';
+            img.alt = 'A cute cat';
+            catPicsContainer.appendChild(img);
+        });
+        
+        // Add interests
+        const interestsList = document.getElementById('interests-list');
+        interests.forEach(interest => {
+            const li = document.createElement('li');
+            li.textContent = interest;
+            interestsList.appendChild(li);
+        });
+        
+        // Add social links
+        const socialLinksList = document.getElementById('social-links');
+        socialLinks.forEach(link => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = link.url;
+            a.textContent = link.name;
+            li.appendChild(a);
+            socialLinksList.appendChild(li);
+        });
+        
+        // Set last updated date
+        document.getElementById('last-updated').textContent = new Date().toLocaleDateString();
+        
+        // Create space background elements
+        const spaceBackground = document.getElementById('space-background');
 
-        document.body.style.backgroundImage = `url(${backgroundImageURL})`;
-
-        // Add a function to reset the background to the default
-        function resetBackground() {
-            document.body.style.backgroundImage = "none";
+        // Create stars
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2 + 0.5;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 5 + 's';
+            spaceBackground.appendChild(star);
+        }
+        
+        // Create shooting stars
+        for (let i = 0; i < 5; i++) {
+            const shootingStar = document.createElement('div');
+            shootingStar.className = 'shooting-star';
+            shootingStar.style.top = Math.random() * 50 + '%';
+            shootingStar.style.left = Math.random() * 100 + '%';
+            shootingStar.style.animationDelay = Math.random() * 15 + 's';
+            shootingStar.style.width = Math.random() * 80 + 50 + 'px';
+            spaceBackground.appendChild(shootingStar);
+        }
+        
+        // Create more realistic black holes
+        for (let i = 0; i < 3; i++) {
+            // Black hole container
+            const blackHoleContainer = document.createElement('div');
+            blackHoleContainer.className = 'black-hole-container';
+            const size = Math.random() * 60 + 60; // Bigger size for more detail
+            blackHoleContainer.style.width = size + 'px';
+            blackHoleContainer.style.height = size + 'px';
+            blackHoleContainer.style.left = Math.random() * 80 + 10 + '%';
+            blackHoleContainer.style.top = Math.random() * 80 + 10 + '%';
+            
+            // Black hole wrapper for animation
+            const blackHoleWrapper = document.createElement('div');
+            blackHoleWrapper.className = 'black-hole-wrapper';
+            
+            // Shadow effect
+            const blackHoleShadow = document.createElement('div');
+            blackHoleShadow.className = 'black-hole-shadow';
+            
+            // Gravitational lensing effect
+            const gravityLens = document.createElement('div');
+            gravityLens.className = 'gravity-lens';
+            
+            // Light distortion
+            const lightDistortion = document.createElement('div');
+            lightDistortion.className = 'light-distortion';
+            
+            // Accretion disk
+            const blackHoleAccretion = document.createElement('div');
+            blackHoleAccretion.className = 'black-hole-accretion';
+            
+            // Event horizon (the actual black hole)
+            const blackHoleEventHorizon = document.createElement('div');
+            blackHoleEventHorizon.className = 'black-hole-event-horizon';
+            
+            // Assemble the black hole
+            blackHoleWrapper.appendChild(blackHoleShadow);
+            blackHoleWrapper.appendChild(gravityLens);
+            blackHoleWrapper.appendChild(lightDistortion);
+            blackHoleWrapper.appendChild(blackHoleAccretion);
+            blackHoleWrapper.appendChild(blackHoleEventHorizon);
+            blackHoleContainer.appendChild(blackHoleWrapper);
+            
+            spaceBackground.appendChild(blackHoleContainer);
+        }
+        
+        // Create galaxy clouds
+        for (let i = 0; i < 4; i++) {
+            const galaxy = document.createElement('div');
+            galaxy.className = 'galaxy';
+            const size = Math.random() * 300 + 200;
+            galaxy.style.width = size + 'px';
+            galaxy.style.height = size + 'px';
+            galaxy.style.left = Math.random() * 100 - 20 + '%';
+            galaxy.style.top = Math.random() * 100 - 20 + '%';
+            galaxy.style.animationDelay = Math.random() * 10 + 's';
+            galaxy.style.zIndex = -3;
+            spaceBackground.appendChild(galaxy);
+        }
+        
+        // Create nebulas
+        for (let i = 0; i < 2; i++) {
+            const nebula = document.createElement('div');
+            nebula.className = 'nebula';
+            const size = Math.random() * 400 + 300;
+            nebula.style.width = size + 'px';
+            nebula.style.height = size + 'px';
+            nebula.style.left = Math.random() * 100 - 20 + '%';
+            nebula.style.top = Math.random() * 100 - 20 + '%';
+            nebula.style.animationDelay = Math.random() * 5 + 's';
+            nebula.style.zIndex = -4;
+            spaceBackground.appendChild(nebula);
         }
     </script>
 </body>
 </html>
-
