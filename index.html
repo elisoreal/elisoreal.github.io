@@ -6,7 +6,6 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50,10 C30,10 15,25 15,50 C15,75 30,90 50,90 C70,90 85,75 85,50 C85,25 70,10 50,10 Z' fill='%239f43ff'/><path d='M30,40 L20,25 M70,40 L80,25 M25,50 A5,5 0 1,1 35,50 M65,50 A5,5 0 1,1 75,50 M40,70 Q50,80 60,70' stroke='%23e9c2ff' stroke-width='4' stroke-linecap='round'/></svg>">
     <title>eli's about page <3</title>
     <style>
-
         :root {
             --main-bg-color: #0a0014;
             --secondary-bg-color: #200037;
@@ -429,45 +428,14 @@
     </style>
 </head>
 <body>
-    <script>
-
-        const messageOfTheDay = "ts lwk gay asf twn 🥀";
-        const yourName = "eli";
-        
-        const catImages = [
-            "https://i.pinimg.com/736x/07/4d/cc/074dcc13cc88258cdc9f1a66895b22bc.jpg", // Cat image 1
-            "https://i.pinimg.com/736x/f3/95/40/f395407a35bfcc7802c66efdef54ab22.jpg", // Cat image 2
-            "https://i.pinimg.com/736x/d2/f7/27/d2f727019dcbaf15edbb06e2eb3c19d6.jpg"  // Cat image 3
-        ];
-        
-        const interests = [
-            "cats!! (obviously!)",
-            "games!!",
-            "everything sci-fi!!",
-            "horror!! (i get scared easily)",
-            "sleepingg!! 💤 (professional bedrotter)"
-        ];
-        
-        const socialLinks = [
-            { name: "Discord", url: "https://discordapp.com/users/585199655709835284" },
-            { name: "Roblox", url: "https://www.roblox.com/users/5817084552/profile" },
-            { name: "Steam", url: "https://steamcommunity.com/profiles/76561199201989415/" }
-        ];
-    </script>
-    
-    <!-- Space background -->
     <div class="space-background" id="space-background"></div>
-
-    <!-- Scanline effect -->
     <div class="scanline"></div>
-
-    <!-- Content starts here -->
     <div class="container">
         <div class="motd" id="motd">
-            <span class="blink">></span> <span id="motd-text"></span> <span class="blink"><</span>
+            <span class="blink">></span> ts lwk gay asf twn 🥀 <span class="blink"><</span>
         </div>
 
-        <h1 class="cursor" id="title">Loading...</h1>
+        <h1 class="cursor">eli's about page <3</h1>
 
         <div class="section">
             <h2 class="section-title">about me ^^</h2>
@@ -476,19 +444,30 @@
 
         <div class="section">
             <h2 class="section-title">kittiess!</h2>
-            <div class="cat-pics" id="cat-pics">
+            <div class="cat-pics">
+                <img src="https://i.pinimg.com/736x/07/4d/cc/074dcc13cc88258cdc9f1a66895b22bc.jpg" class="cat-pic" alt="cute kitty">
+                <img src="https://i.pinimg.com/736x/f3/95/40/f395407a35bfcc7802c66efdef54ab22.jpg" class="cat-pic" alt="cute kitty">
+                <img src="https://i.pinimg.com/736x/d2/f7/27/d2f727019dcbaf15edbb06e2eb3c19d6.jpg" class="cat-pic" alt="cute kitty">
             </div>
         </div>
 
         <div class="section">
             <h2 class="section-title">interests</h2>
-            <ul id="interests-list">
+            <ul>
+                <li>cats!! (obviously!)</li>
+                <li>games!!</li>
+                <li>everything sci-fi!!</li>
+                <li>horror!! (i get scared easily)</li>
+                <li>sleepingg!! 💤 (professional bedrotter)</li>
             </ul>
         </div>
 
         <div class="section">
             <h2 class="section-title">find me ♥</h2>
-            <ul id="social-links">
+            <ul>
+                <li><a href="https://discordapp.com/users/585199655709835284">Discord</a></li>
+                <li><a href="https://www.roblox.com/users/5817084552/profile">Roblox</a></li>
+                <li><a href="https://steamcommunity.com/profiles/76561199201989415/">Steam</a></li>
             </ul>
         </div>
 
@@ -499,34 +478,6 @@
     </div>
 
     <script>
-        document.getElementById('motd-text').textContent = messageOfTheDay;
-        document.getElementById('title').textContent = yourName + "'s about page!";
-        const catPicsContainer = document.getElementById('cat-pics');
-        catImages.forEach(src => {
-            const img = document.createElement('img');
-            img.src = src;
-            img.className = 'cat-pic';
-            img.alt = 'cute kitty';
-            catPicsContainer.appendChild(img);
-        });
-
-        const interestsList = document.getElementById('interests-list');
-        interests.forEach(interest => {
-            const li = document.createElement('li');
-            li.textContent = interest;
-            interestsList.appendChild(li);
-        });
-
-        const socialLinksList = document.getElementById('social-links');
-        socialLinks.forEach(link => {
-            const li = document.createElement('li');
-            const a = document.createElement('a');
-            a.href = link.url;
-            a.textContent = link.name;
-            li.appendChild(a);
-            socialLinksList.appendChild(li);
-        });
-        
         document.getElementById('last-updated').textContent = new Date().toLocaleDateString();
         
         const spaceBackground = document.getElementById('space-background');
