@@ -6,9 +6,7 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50,10 C30,10 15,25 15,50 C15,75 30,90 50,90 C70,90 85,75 85,50 C85,25 70,10 50,10 Z' fill='%239f43ff'/><path d='M30,40 L20,25 M70,40 L80,25 M25,50 A5,5 0 1,1 35,50 M65,50 A5,5 0 1,1 75,50 M40,70 Q50,80 60,70' stroke='%23e9c2ff' stroke-width='4' stroke-linecap='round'/></svg>">
     <title>eli's about page <3</title>
     <style>
-        /* =================== */
-        /* CUSTOMIZABLE COLORS */
-        /* =================== */
+
         :root {
             --main-bg-color: #0a0014;
             --secondary-bg-color: #200037;
@@ -17,9 +15,6 @@
             --highlight-color: #ff66c4;
         }
 
-        /* ======================= */
-        /* REST OF THE SITE STYLES */
-        /* ======================= */
         @font-face {
             font-family: 'VCR OSD Mono';
             src: url('https://cdnjs.cloudflare.com/ajax/libs/vcr-osd-mono/1.0.1/VCR_OSD_MONO_1.001.ttf') format('truetype');
@@ -182,7 +177,6 @@
             opacity: 0.7;
         }
 
-        /* Cursor effect */
         .cursor::after {
             content: "_";
             animation: cursor 1s infinite;
@@ -193,7 +187,6 @@
             50% { opacity: 0; }
         }
 
-        /* Space background */
         .space-background {
             position: fixed;
             top: 0;
@@ -205,7 +198,6 @@
             overflow: hidden;
         }
 
-        /* Stars */
         .star {
             position: absolute;
             background-color: white;
@@ -218,7 +210,6 @@
             50% { opacity: 0.3; }
         }
 
-        /* Shooting stars */
         .shooting-star {
             position: absolute;
             width: 2px;
@@ -245,7 +236,6 @@
             }
         }
 
-        /* Black Hole - More realistic with event horizon */
         .black-hole-container {
             position: absolute;
             z-index: -2;
@@ -402,7 +392,6 @@
             50% { transform: scale(1.05); }
         }
 
-        /* Galaxy cloud */
         .galaxy {
             position: absolute;
             border-radius: 50%;
@@ -418,7 +407,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Nebula */
         .nebula {
             position: absolute;
             border-radius: 50%;
@@ -441,26 +429,17 @@
     </style>
 </head>
 <body>
-    <!-- CUSTOM ELEMENTS (Edit these!) -->
     <script>
-        // =====================
-        // EDITABLE CONTENT HERE
-        // =====================
-        
-        // Message of the day
+
         const messageOfTheDay = "ts lwk gay asf twn 🥀";
-        
-        // Your name
         const yourName = "eli";
         
-        // Your cat images (replace these with your own image URLs)
         const catImages = [
             "https://i.pinimg.com/736x/07/4d/cc/074dcc13cc88258cdc9f1a66895b22bc.jpg", // Cat image 1
             "https://i.pinimg.com/736x/f3/95/40/f395407a35bfcc7802c66efdef54ab22.jpg", // Cat image 2
             "https://i.pinimg.com/736x/d2/f7/27/d2f727019dcbaf15edbb06e2eb3c19d6.jpg"  // Cat image 3
         ];
         
-        // Your interests (add or remove items as needed)
         const interests = [
             "cats!! (obviously!)",
             "games!!",
@@ -469,7 +448,6 @@
             "sleepingg!! 💤 (professional bedrotter)"
         ];
         
-        // Your social links (edit or remove as needed)
         const socialLinks = [
             { name: "Discord", url: "https://discordapp.com/users/585199655709835284" },
             { name: "Roblox", url: "https://www.roblox.com/users/5817084552/profile" },
@@ -499,21 +477,18 @@
         <div class="section">
             <h2 class="section-title">kittiess!</h2>
             <div class="cat-pics" id="cat-pics">
-                <!-- Cat images will be inserted here by JavaScript -->
             </div>
         </div>
 
         <div class="section">
             <h2 class="section-title">interests</h2>
             <ul id="interests-list">
-                <!-- Interests will be inserted here by JavaScript -->
             </ul>
         </div>
 
         <div class="section">
             <h2 class="section-title">find me ♥</h2>
             <ul id="social-links">
-                <!-- Social links will be inserted here by JavaScript -->
             </ul>
         </div>
 
@@ -524,31 +499,24 @@
     </div>
 
     <script>
-        // Display the message of the day
         document.getElementById('motd-text').textContent = messageOfTheDay;
-        
-        // Set the title
         document.getElementById('title').textContent = yourName + "'s about page!";
-        
-        // Add cat images
         const catPicsContainer = document.getElementById('cat-pics');
         catImages.forEach(src => {
             const img = document.createElement('img');
             img.src = src;
             img.className = 'cat-pic';
-            img.alt = 'A cute cat';
+            img.alt = 'cute kitty';
             catPicsContainer.appendChild(img);
         });
-        
-        // Add interests
+
         const interestsList = document.getElementById('interests-list');
         interests.forEach(interest => {
             const li = document.createElement('li');
             li.textContent = interest;
             interestsList.appendChild(li);
         });
-        
-        // Add social links
+
         const socialLinksList = document.getElementById('social-links');
         socialLinks.forEach(link => {
             const li = document.createElement('li');
@@ -559,13 +527,10 @@
             socialLinksList.appendChild(li);
         });
         
-        // Set last updated date
         document.getElementById('last-updated').textContent = new Date().toLocaleDateString();
         
-        // Create space background elements
         const spaceBackground = document.getElementById('space-background');
 
-        // Create stars
         for (let i = 0; i < 100; i++) {
             const star = document.createElement('div');
             star.className = 'star';
@@ -578,7 +543,6 @@
             spaceBackground.appendChild(star);
         }
         
-        // Create shooting stars
         for (let i = 0; i < 5; i++) {
             const shootingStar = document.createElement('div');
             shootingStar.className = 'shooting-star';
@@ -589,42 +553,33 @@
             spaceBackground.appendChild(shootingStar);
         }
         
-        // Create more realistic black holes
         for (let i = 0; i < 3; i++) {
-            // Black hole container
             const blackHoleContainer = document.createElement('div');
             blackHoleContainer.className = 'black-hole-container';
-            const size = Math.random() * 60 + 60; // Bigger size for more detail
+            const size = Math.random() * 60 + 60;
             blackHoleContainer.style.width = size + 'px';
             blackHoleContainer.style.height = size + 'px';
             blackHoleContainer.style.left = Math.random() * 80 + 10 + '%';
             blackHoleContainer.style.top = Math.random() * 80 + 10 + '%';
             
-            // Black hole wrapper for animation
             const blackHoleWrapper = document.createElement('div');
             blackHoleWrapper.className = 'black-hole-wrapper';
             
-            // Shadow effect
             const blackHoleShadow = document.createElement('div');
             blackHoleShadow.className = 'black-hole-shadow';
-            
-            // Gravitational lensing effect
+
             const gravityLens = document.createElement('div');
             gravityLens.className = 'gravity-lens';
             
-            // Light distortion
             const lightDistortion = document.createElement('div');
             lightDistortion.className = 'light-distortion';
             
-            // Accretion disk
             const blackHoleAccretion = document.createElement('div');
             blackHoleAccretion.className = 'black-hole-accretion';
             
-            // Event horizon (the actual black hole)
             const blackHoleEventHorizon = document.createElement('div');
             blackHoleEventHorizon.className = 'black-hole-event-horizon';
             
-            // Assemble the black hole
             blackHoleWrapper.appendChild(blackHoleShadow);
             blackHoleWrapper.appendChild(gravityLens);
             blackHoleWrapper.appendChild(lightDistortion);
@@ -635,7 +590,6 @@
             spaceBackground.appendChild(blackHoleContainer);
         }
         
-        // Create galaxy clouds
         for (let i = 0; i < 4; i++) {
             const galaxy = document.createElement('div');
             galaxy.className = 'galaxy';
@@ -649,7 +603,6 @@
             spaceBackground.appendChild(galaxy);
         }
         
-        // Create nebulas
         for (let i = 0; i < 2; i++) {
             const nebula = document.createElement('div');
             nebula.className = 'nebula';
