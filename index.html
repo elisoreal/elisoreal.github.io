@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eli's about page</title>
+    <title>about eli <3</title>
+    <link rel="icon" href="footprint.ico" type="image/x-icon">
+    
+    <meta property="og:title" content="eli's super duper cool evil website">
+    <meta property="og:description" content="eli's emo and dark website with cats and interests">
+    <meta property="og:image" content="https://i.pinimg.com/736x/d2/83/a3/d283a3e79b26d5bd18fa19049e1557b8.jpg">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="website">
+    
     <style>
-        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
@@ -20,7 +27,6 @@
             position: relative;
         }
         
-        /* Intro overlay */
         .intro-overlay {
             position: fixed;
             top: 0;
@@ -84,7 +90,6 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
         }
         
-        /* Stars background */
         .stars-container {
             position: fixed;
             top: 0;
@@ -109,7 +114,6 @@
             100% { opacity: 0.3; }
         }
         
-        /* MOTD Banner */
         .motd {
             width: 100%;
             padding: 12px;
@@ -137,7 +141,6 @@
             100% { left: 150%; }
         }
         
-        /* Main content */
         .content {
             max-width: 1000px;
             margin: 0 auto;
@@ -147,7 +150,6 @@
             transition: opacity 1s ease, transform 1s ease;
         }
         
-        /* Cat gallery */
         .cat-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -182,7 +184,6 @@
             letter-spacing: 1px;
         }
         
-        /* Text sections */
         .text-section {
             background-color: rgba(20, 20, 20, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -199,7 +200,6 @@
             padding-bottom: 10px;
         }
         
-        /* Social links */
         .social-links {
             display: flex;
             flex-wrap: wrap;
@@ -223,7 +223,6 @@
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
         }
         
-        /* Secret image modal */
         .secret-modal {
             position: fixed;
             top: 0;
@@ -270,36 +269,6 @@
             background-color: rgba(80, 80, 80, 0.9);
         }
         
-        /* Music controls */
-        .music-controls {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: rgba(30, 30, 30, 0.7);
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 100;
-            transition: all 0.3s ease;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .music-controls:hover {
-            transform: scale(1.1);
-            background-color: rgba(50, 50, 50, 0.8);
-        }
-        
-        .music-icon {
-            width: 20px;
-            height: 20px;
-        }
-        
-        /* Footer */
         footer {
             text-align: center;
             padding: 30px 0;
@@ -308,13 +277,11 @@
             letter-spacing: 1px;
         }
         
-        /* Animations and effects */
         .fade-in {
             opacity: 1;
             transform: translateY(0);
         }
         
-        /* Media queries */
         @media (max-width: 768px) {
             .glowing-text {
                 font-size: 1.8rem;
@@ -332,40 +299,23 @@
     </style>
 </head>
 <body>
-    <!-- Intro overlay -->
     <div class="intro-overlay" id="introOverlay">
         <h1 class="glowing-text">eli's super duper cool evil website</h1>
         <button class="enter-btn" id="enterBtn">ENTER</button>
     </div>
     
-    <!-- Stars background -->
     <div class="stars-container" id="starsContainer"></div>
     
-    <!-- MOTD Banner -->
     <div class="motd" id="motdBanner">
-        // CHANGED THE THEME!!
+        // type eli for a surprise!!
     </div>
     
-    <!-- Main content -->
     <div class="content" id="mainContent">
         <div class="text-section">
-            <h2 class="section-title">About Me</h2>
+            <h2 class="section-title">about me</h2>
             <p>hihi welcome to the EVIL and EMO and DARK variant of my supa epic website, basically the same thing, ill add social links n stuff later mreow (AND ACTUALLY FILL THIS WITH STUFF ABOUT ME!!) for now, u can observe the cat pics and look at my interests n dislikes</p>
         </div>
         
-        <!-- Social links section -->
-        <div class="text-section">
-            <h2 class="section-title">find me</h2>
-            <div class="social-links">
-                <a href="#" class="social-link">discord</a>
-                <a href="#" class="social-link">twitter</a>
-                <a href="#" class="social-link">twitch</a>
-                <a href="#" class="social-link">github</a>
-                <a href="#" class="social-link">instagram</a>
-            </div>
-        </div>
-        
-        <!-- Cat gallery -->
         <h2 class="section-title">cat pics (not my cats)</h2>
         <div class="cat-gallery">
             <div class="cat-card">
@@ -407,21 +357,20 @@
                 <li>outside</li>
             </ul>
         </div>
+        
+        <div class="text-section">
+            <h2 class="section-title">find me</h2>
+            <div class="social-links">
+                <a href="https://discordapp.com/users/585199655709835284" class="social-link">discord</a>
+                <a href="https://www.roblox.com/users/5817084552/profile" class="social-link">roblox</a>
+                <a href="https://steamcommunity.com/profiles/76561199201989415/" class="social-link">steam</a>
+            </div>
+        </div>
     </div>
     
-    <!-- Secret image modal -->
     <div class="secret-modal" id="secretModal">
         <img id="secretImage" src="https://i.pinimg.com/736x/8b/30/c7/8b30c714b2e28deb08ce803f6ccb7c91.jpg" alt="Secret image" class="secret-img">
         <button class="close-modal" id="closeModal">X</button>
-    </div>
-    
-    <!-- Music controls -->
-    <div class="music-controls" id="musicToggle">
-        <svg class="music-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 18V5l12-2v13"></path>
-            <circle cx="6" cy="18" r="3"></circle>
-            <circle cx="18" cy="16" r="3"></circle>
-        </svg>
     </div>
     
     <footer>
@@ -429,41 +378,14 @@
     </footer>
     
     <script>
-        // Wait for the DOM to load
         document.addEventListener('DOMContentLoaded', function() {
-            // Get elements
             const introOverlay = document.getElementById('introOverlay');
             const enterBtn = document.getElementById('enterBtn');
             const mainContent = document.getElementById('mainContent');
             const starsContainer = document.getElementById('starsContainer');
             const secretModal = document.getElementById('secretModal');
             const closeModal = document.getElementById('closeModal');
-            const secretImage = document.getElementById('secretImage');
-            const musicToggle = document.getElementById('musicToggle');
             
-            // Create audio element for background music
-            const bgMusic = new Audio();
-            // Change this URL to your music file
-            bgMusic.src = "cutelovestory.mp3";
-            bgMusic.loop = true;
-            bgMusic.volume = 0.3;
-            let musicPlaying = false;
-            
-            // Music toggle
-            musicToggle.addEventListener('click', function() {
-                if (musicPlaying) {
-                    bgMusic.pause();
-                    musicToggle.style.backgroundColor = "rgba(30, 30, 30, 0.7)";
-                } else {
-                    bgMusic.play().catch(error => {
-                        console.log("Autoplay prevented: ", error);
-                    });
-                    musicToggle.style.backgroundColor = "rgba(80, 80, 80, 0.9)";
-                }
-                musicPlaying = !musicPlaying;
-            });
-            
-            // Enter button click event
             enterBtn.addEventListener('click', function() {
                 introOverlay.style.opacity = '0';
                 setTimeout(function() {
@@ -472,63 +394,48 @@
                 }, 800);
             });
             
-            // Close secret modal
             closeModal.addEventListener('click', function() {
                 secretModal.classList.remove('active');
             });
             
-            // Create stars
             function createStars() {
-                // Clear existing stars
                 starsContainer.innerHTML = '';
-                
-                // Create new stars
                 const numStars = Math.floor(window.innerWidth * window.innerHeight / 1000);
                 
                 for (let i = 0; i < numStars; i++) {
                     const star = document.createElement('div');
                     star.classList.add('star');
                     
-                    // Random size between 1 and 3 pixels
                     const size = Math.random() * 2 + 1;
                     star.style.width = size + 'px';
                     star.style.height = size + 'px';
                     
-                    // Random position
                     const left = Math.random() * 100;
                     const top = Math.random() * 100;
                     star.style.left = left + '%';
                     star.style.top = top + '%';
                     
-                    // Random animation delay
                     star.style.animationDelay = Math.random() * 3 + 's';
                     
-                    // Random z-index for parallax effect
                     const zIndex = Math.floor(Math.random() * 3);
                     star.style.zIndex = zIndex;
                     
-                    // Add different opacity based on z-index for depth effect
                     const opacity = 0.5 + (zIndex * 0.25);
                     star.style.opacity = opacity;
                     
-                    // Add to container
                     starsContainer.appendChild(star);
                 }
             }
             
-            // Create stars initially
             createStars();
             
-            // Create stars again on window resize
             window.addEventListener('resize', function() {
-                // Debounce to prevent too many redraws
                 if (this.resizeTimeout) clearTimeout(this.resizeTimeout);
                 this.resizeTimeout = setTimeout(function() {
                     createStars();
                 }, 200);
             });
             
-            // Parallax effect for stars
             document.addEventListener('mousemove', function(e) {
                 const xPos = (e.clientX / window.innerWidth) - 0.5;
                 const yPos = (e.clientY / window.innerHeight) - 0.5;
@@ -542,45 +449,34 @@
                 });
             });
             
-            // New keyboard-friendly easter egg - type "eli"
             let eliCode = ['e', 'l', 'i'];
             let eliIndex = 0;
             
             document.addEventListener('keydown', function(e) {
-                // Get lowercase key value
                 const key = e.key.toLowerCase();
                 
-                // Check if the right key in the sequence was pressed
                 if (key === eliCode[eliIndex]) {
                     eliIndex++;
                     
-                    // If the whole sequence is complete
                     if (eliIndex === eliCode.length) {
-                        // Reset index
                         eliIndex = 0;
-                        
-                        // Show secret modal
                         secretModal.classList.add('active');
                         
-                        // Flash effect
                         document.body.style.backgroundColor = '#222';
                         setTimeout(() => {
                             document.body.style.backgroundColor = '#000';
                         }, 200);
                         
-                        // Play meow sound
                         const meow = new Audio();
                         meow.src = "data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAFAAAGngCFhYWFhYWFhYWFhYWFhYWFhYWFvb29vb29vb29vb29vb29vb29vb3t7e3t7e3t7e3t7e3t7e3t7e3t7f////////////////////////////////8AAAA8TEFNRTMuOTlyAc0AAAAAAAAAABSAJAJAQgAAgAAABoaRhLc5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uAxAAABLQ/WhTRgAC0CKn9YigAIAmZUCJkFAACMGQHBzg5wcJDlAZODnBwcHCg5//5QEP/+cHBzg5wc4OcHD/5wcHBwcHBwcHODnBznBwcHCg5wYBAEAQdMXF3cPkAQaymUylwQGDofB8HwfD6PnQfh5xTr4+Hw+H0YjyPE6XUbotvF+nT587nw+Hw+j4fR8Po/lAQdVZ1bXYex8H//ygIP//KhKHwf/+UCUdNZ1VnOmXl5eX6wCDoA3Kysru7/9u1QLf/1XYMgN3/fqKjd0FYCYMqwLAQsGSwoMlMyXJU1KKsl4ZIgAEo5TgKJmUVBAcJnKAILhQ1likTMqpSRuSRKIiqx0ZAcAQUCh0iLblI4zKJVs/EkTDSZbYpHGZRKLBs8lERVY6RQOAIKAw6hHctJIrJRIXpxJEkSSOsjikTrkNyaYt3JbmXjcNI22VEUSRKsREUSRWNkUDgXvQXLpyG5NKS+PIkSSJI66fyKRuuPJY03HktzLxuGnpbRRFEkVWnEURRJFaLBu9B91Jrj4D/BwMBgCAIAgD4Pg+D4QA+eUx+H//xAD4Ph9Hwf//+D//EAPgyAPh9Hwf/5QCG5/5cqMXQdMvLy8vUIAg6OmXl5eXl5f3DpLy8v//8OkvLy/LdMvL//l5cHD9BycHBzkByg5QcHBwcHBw5QcHBw//5OcHBwcHBwcAABQMSKYRKdERBCgKJRMRVREUKCUXESipiKARMmIRKJREYiUXAyLEREYgAAwQSEwKP/K9K9SsFVRMP/7kMQMgA4JGVmsYe3BvCMr9PEACH+HABB/kVTEFNRTMuOTkuNVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVU=";
                         meow.play();
                     }
                 } else {
-                    // Reset if wrong key is pressed
                     eliIndex = 0;
                 }
             });
             
-            // Random console message
-            console.log('%c👻 i love cats', 'font-size:14px; color:#fff; background:#000; padding:5px;');
+            console.log('👻 i love cats');
         });
     </script>
 </body>
