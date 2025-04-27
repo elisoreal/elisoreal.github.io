@@ -307,7 +307,7 @@
     <div class="stars-container" id="starsContainer"></div>
     
     <div class="motd" id="motdBanner">
-        // type eli for a surprise!!
+        // if you type your name you might get a secret image!! (depends on if i made one for you)
     </div>
     
     <div class="content" id="mainContent">
@@ -373,6 +373,16 @@
         <button class="close-modal" id="closeModal">X</button>
     </div>
     
+    <div class="secret-modal" id="rockModal">
+        <img id="rockImage" src="https://media.discordapp.net/attachments/1356316804305125518/1366103254110441562/heist.png?ex=680fba4c&is=680e68cc&hm=4ac68a5e31fd951484ee2f53d37e37eb59b8ca9e96d4d087e6154b48ea7b6855&=" alt="Rock image" class="secret-img">
+        <button class="close-modal" id="closeRockModal">X</button>
+    </div>
+    
+    <div class="secret-modal" id="koviModal">
+        <img id="koviImage" src="https://i.pinimg.com/736x/54/54/bf/5454bf7b8f4ba8d447bd8184dc4247ce.jpg" alt="Kovi image" class="secret-img">
+        <button class="close-modal" id="closeKoviModal">X</button>
+    </div>
+    
     <footer>
         im so sleeepyyy © 2025 eli
     </footer>
@@ -383,8 +393,14 @@
             const enterBtn = document.getElementById('enterBtn');
             const mainContent = document.getElementById('mainContent');
             const starsContainer = document.getElementById('starsContainer');
+            
+            // Secret modals
             const secretModal = document.getElementById('secretModal');
             const closeModal = document.getElementById('closeModal');
+            const rockModal = document.getElementById('rockModal');
+            const closeRockModal = document.getElementById('closeRockModal');
+            const koviModal = document.getElementById('koviModal');
+            const closeKoviModal = document.getElementById('closeKoviModal');
             
             enterBtn.addEventListener('click', function() {
                 introOverlay.style.opacity = '0';
@@ -394,8 +410,17 @@
                 }, 800);
             });
             
+            // Close modal buttons
             closeModal.addEventListener('click', function() {
                 secretModal.classList.remove('active');
+            });
+            
+            closeRockModal.addEventListener('click', function() {
+                rockModal.classList.remove('active');
+            });
+            
+            closeKoviModal.addEventListener('click', function() {
+                koviModal.classList.remove('active');
             });
             
             function createStars() {
@@ -449,12 +474,29 @@
                 });
             });
             
+            // Secret code detection for 'eli'
             let eliCode = ['e', 'l', 'i'];
             let eliIndex = 0;
+            
+            // Secret code detection for 'rock'
+            let rockCode = ['r', 'o', 'c', 'k'];
+            let rockIndex = 0;
+            
+            // Secret code detection for 'kovi'
+            let koviCode = ['k', 'o', 'v', 'i'];
+            let koviIndex = 0;
+            
+            // Sound effect
+            const createMeowSound = function() {
+                const meow = new Audio();
+                meow.src = "data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAFAAAGngCFhYWFhYWFhYWFhYWFhYWFhYWFvb29vb29vb29vb29vb29vb29vb3t7e3t7e3t7e3t7e3t7e3t7e3t7f////////////////////////////////8AAAA8TEFNRTMuOTlyAc0AAAAAAAAAABSAJAJAQgAAgAAABoaRhLc5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uAxAAABLQ/WhTRgAC0CKn9YigAIAmZUCJkFAACMGQHBzg5wcJDlAZODnBwcHCg5//5QEP/+cHBzg5wc4OcHD/5wcHBwcHBwcHODnBznBwcHCg5wYBAEAQdMXF3cPkAQaymUylwQGDofB8HwfD6PnQfh5xTr4+Hw+H0YjyPE6XUbotvF+nT587nw+Hw+j4fR8Po/lAQdVZ1bXYex8H//ygIP//KhKHwf/+UCUdNZ1VnOmXl5eX6wCDoA3Kysru7/9u1QLf/1XYMgN3/fqKjd0FYCYMqwLAQsGSwoMlMyXJU1KKsl4ZIgAEo5TgKJmUVBAcJnKAILhQ1likTMqpSRuSRKIiqx0ZAcAQUCh0iLblI4zKJVs/EkTDSZbYpHGZRKLBs8lERVY6RQOAIKAw6hHctJIrJRIXpxJEkSSOsjikTrkNyaYt3JbmXjcNI22VEUSRKsREUSRWNkUDgXvQXLpyG5NKS+PIkSSJI66fyKRuuPJY03HktzLxuGnpbRRFEkVWnEURRJFaLBu9B91Jrj4D/BwMBgCAIAgD4Pg+D4QA+eUx+H//xAD4Ph9Hwf//+D//EAPgyAPh9Hwf/5QCG5/5cqMXQdMvLy8vUIAg6OmXl5eXl5f3DpLy8v//8OkvLy/LdMvL//l5cHD9BycHBzkByg5QcHBwcHBw5QcHBw//5OcHBwcHBwcAABQMSKYRKdERBCgKJRMRVREUKCUXESipiKARMmIRKJREYiUXAyLEREYgAAwQSEwKP/K9K9SsFVRMP/7kMQMgA4JGVmsYe3BvCMr9PEACH+HABB/kVTEFNRTMuOTkuNVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVU=";
+                return meow;
+            };
             
             document.addEventListener('keydown', function(e) {
                 const key = e.key.toLowerCase();
                 
+                // Check for 'eli' code
                 if (key === eliCode[eliIndex]) {
                     eliIndex++;
                     
@@ -467,12 +509,51 @@
                             document.body.style.backgroundColor = '#000';
                         }, 200);
                         
-                        const meow = new Audio();
-                        meow.src = "data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAFAAAGngCFhYWFhYWFhYWFhYWFhYWFhYWFvb29vb29vb29vb29vb29vb29vb3t7e3t7e3t7e3t7e3t7e3t7e3t7f////////////////////////////////8AAAA8TEFNRTMuOTlyAc0AAAAAAAAAABSAJAJAQgAAgAAABoaRhLc5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uAxAAABLQ/WhTRgAC0CKn9YigAIAmZUCJkFAACMGQHBzg5wcJDlAZODnBwcHCg5//5QEP/+cHBzg5wc4OcHD/5wcHBwcHBwcHODnBznBwcHCg5wYBAEAQdMXF3cPkAQaymUylwQGDofB8HwfD6PnQfh5xTr4+Hw+H0YjyPE6XUbotvF+nT587nw+Hw+j4fR8Po/lAQdVZ1bXYex8H//ygIP//KhKHwf/+UCUdNZ1VnOmXl5eX6wCDoA3Kysru7/9u1QLf/1XYMgN3/fqKjd0FYCYMqwLAQsGSwoMlMyXJU1KKsl4ZIgAEo5TgKJmUVBAcJnKAILhQ1likTMqpSRuSRKIiqx0ZAcAQUCh0iLblI4zKJVs/EkTDSZbYpHGZRKLBs8lERVY6RQOAIKAw6hHctJIrJRIXpxJEkSSOsjikTrkNyaYt3JbmXjcNI22VEUSRKsREUSRWNkUDgXvQXLpyG5NKS+PIkSSJI66fyKRuuPJY03HktzLxuGnpbRRFEkVWnEURRJFaLBu9B91Jrj4D/BwMBgCAIAgD4Pg+D4QA+eUx+H//xAD4Ph9Hwf//+D//EAPgyAPh9Hwf/5QCG5/5cqMXQdMvLy8vUIAg6OmXl5eXl5f3DpLy8v//8OkvLy/LdMvL//l5cHD9BycHBzkByg5QcHBwcHBw5QcHBw//5OcHBwcHBwcAABQMSKYRKdERBCgKJRMRVREUKCUXESipiKARMmIRKJREYiUXAyLEREYgAAwQSEwKP/K9K9SsFVRMP/7kMQMgA4JGVmsYe3BvCMr9PEACH+HABB/kVTEFNRTMuOTkuNVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVU=";
+                        const meow = createMeowSound();
                         meow.play();
                     }
-                } else {
+                } else if (key !== eliCode[0]) {
                     eliIndex = 0;
+                }
+                
+                // Check for 'rock' code
+                if (key === rockCode[rockIndex]) {
+                    rockIndex++;
+                    
+                    if (rockIndex === rockCode.length) {
+                        rockIndex = 0;
+                        rockModal.classList.add('active');
+                        
+                        document.body.style.backgroundColor = '#222';
+                        setTimeout(() => {
+                            document.body.style.backgroundColor = '#000';
+                        }, 200);
+                        
+                        const meow = createMeowSound();
+                        meow.play();
+                    }
+                } else if (key !== rockCode[0]) {
+                    rockIndex = 0;
+                }
+                
+                // Check for 'kovi' code
+                if (key === koviCode[koviIndex]) {
+                    koviIndex++;
+                    
+                    if (koviIndex === koviCode.length) {
+                        koviIndex = 0;
+                        koviModal.classList.add('active');
+                        
+                        document.body.style.backgroundColor = '#222';
+                        setTimeout(() => {
+                            document.body.style.backgroundColor = '#000';
+                        }, 200);
+                        
+                        const meow = createMeowSound();
+                        meow.play();
+                    }
+                } else if (key !== koviCode[0]) {
+                    koviIndex = 0;
                 }
             });
             
