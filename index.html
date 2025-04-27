@@ -383,6 +383,12 @@
         <button class="close-modal" id="closeKoviModal">X</button>
     </div>
     
+    <!-- New Tucker Modal -->
+    <div class="secret-modal" id="tuckerModal">
+        <img id="tuckerImage" src="https://media.discordapp.net/attachments/1300233300916572271/1366107774257332284/heist.png?ex=680fbe82&is=680e6d02&hm=9adc998ae944131f694ac6d17d93a0763d20275586d5ad517fdf1ac631e5462c&=" alt="Tucker image" class="secret-img">
+        <button class="close-modal" id="closeTuckerModal">X</button>
+    </div>
+    
     <footer>
         im so sleeepyyy © 2025 eli
     </footer>
@@ -401,6 +407,9 @@
             const closeRockModal = document.getElementById('closeRockModal');
             const koviModal = document.getElementById('koviModal');
             const closeKoviModal = document.getElementById('closeKoviModal');
+            // Tucker modal
+            const tuckerModal = document.getElementById('tuckerModal');
+            const closeTuckerModal = document.getElementById('closeTuckerModal');
             
             enterBtn.addEventListener('click', function() {
                 introOverlay.style.opacity = '0';
@@ -421,6 +430,11 @@
             
             closeKoviModal.addEventListener('click', function() {
                 koviModal.classList.remove('active');
+            });
+            
+            // Tucker close button
+            closeTuckerModal.addEventListener('click', function() {
+                tuckerModal.classList.remove('active');
             });
             
             function createStars() {
@@ -486,12 +500,9 @@
             let koviCode = ['k', 'o', 'v', 'i'];
             let koviIndex = 0;
             
-            // Sound effect
-            const createMeowSound = function() {
-                const meow = new Audio();
-                meow.src = "data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAFAAAGngCFhYWFhYWFhYWFhYWFhYWFhYWFvb29vb29vb29vb29vb29vb29vb3t7e3t7e3t7e3t7e3t7e3t7e3t7f////////////////////////////////8AAAA8TEFNRTMuOTlyAc0AAAAAAAAAABSAJAJAQgAAgAAABoaRhLc5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uAxAAABLQ/WhTRgAC0CKn9YigAIAmZUCJkFAACMGQHBzg5wcJDlAZODnBwcHCg5//5QEP/+cHBzg5wc4OcHD/5wcHBwcHBwcHODnBznBwcHCg5wYBAEAQdMXF3cPkAQaymUylwQGDofB8HwfD6PnQfh5xTr4+Hw+H0YjyPE6XUbotvF+nT587nw+Hw+j4fR8Po/lAQdVZ1bXYex8H//ygIP//KhKHwf/+UCUdNZ1VnOmXl5eX6wCDoA3Kysru7/9u1QLf/1XYMgN3/fqKjd0FYCYMqwLAQsGSwoMlMyXJU1KKsl4ZIgAEo5TgKJmUVBAcJnKAILhQ1likTMqpSRuSRKIiqx0ZAcAQUCh0iLblI4zKJVs/EkTDSZbYpHGZRKLBs8lERVY6RQOAIKAw6hHctJIrJRIXpxJEkSSOsjikTrkNyaYt3JbmXjcNI22VEUSRKsREUSRWNkUDgXvQXLpyG5NKS+PIkSSJI66fyKRuuPJY03HktzLxuGnpbRRFEkVWnEURRJFaLBu9B91Jrj4D/BwMBgCAIAgD4Pg+D4QA+eUx+H//xAD4Ph9Hwf//+D//EAPgyAPh9Hwf/5QCG5/5cqMXQdMvLy8vUIAg6OmXl5eXl5f3DpLy8v//8OkvLy/LdMvL//l5cHD9BycHBzkByg5QcHBwcHBw5QcHBw//5OcHBwcHBwcAABQMSKYRKdERBCgKJRMRVREUKCUXESipiKARMmIRKJREYiUXAyLEREYgAAwQSEwKP/K9K9SsFVRMP/7kMQMgA4JGVmsYe3BvCMr9PEACH+HABB/kVTEFNRTMuOTkuNVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVU=";
-                return meow;
-            };
+            // Secret code detection for 'tucker'
+            let tuckerCode = ['t', 'u', 'c', 'k', 'e', 'r'];
+            let tuckerIndex = 0;
             
             document.addEventListener('keydown', function(e) {
                 const key = e.key.toLowerCase();
@@ -554,6 +565,26 @@
                     }
                 } else if (key !== koviCode[0]) {
                     koviIndex = 0;
+                }
+                
+                // Check for 'tucker' code
+                if (key === tuckerCode[tuckerIndex]) {
+                    tuckerIndex++;
+                    
+                    if (tuckerIndex === tuckerCode.length) {
+                        tuckerIndex = 0;
+                        tuckerModal.classList.add('active');
+                        
+                        document.body.style.backgroundColor = '#222';
+                        setTimeout(() => {
+                            document.body.style.backgroundColor = '#000';
+                        }, 200);
+                        
+                        const meow = createMeowSound();
+                        meow.play();
+                    }
+                } else if (key !== tuckerCode[0]) {
+                    tuckerIndex = 0;
                 }
             });
             
