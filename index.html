@@ -3,575 +3,415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="eli's about page <3">
-<meta property="og:description" content="learn about eli!! ^^">
-<meta property="og:image" content="https://i.pinimg.com/736x/3f/f6/d6/3ff6d6f8e37e18859575e453bd434eb9.jpg">
-<meta property="og:url" content="https://eli.is-a.dev">
-<meta property="og:type" content="website">
-
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50,10 C30,10 15,25 15,50 C15,75 30,90 50,90 C70,90 85,75 85,50 C85,25 70,10 50,10 Z' fill='%239f43ff'/><path d='M30,40 L20,25 M70,40 L80,25 M25,50 A5,5 0 1,1 35,50 M65,50 A5,5 0 1,1 75,50 M40,70 Q50,80 60,70' stroke='%23e9c2ff' stroke-width='4' stroke-linecap='round'/></svg>">
-    <title>eli's about page <3</title>
+    <title>My Space</title>
     <style>
-        :root {
-            --main-bg-color: #0a0014;
-            --secondary-bg-color: #200037;
-            --main-text-color: #e9c2ff;
-            --accent-color: #9f43ff;
-            --highlight-color: #ff66c4;
-        }
-
-        @font-face {
-            font-family: 'VCR OSD Mono';
-            src: url('https://cdnjs.cloudflare.com/ajax/libs/vcr-osd-mono/1.0.1/VCR_OSD_MONO_1.001.ttf') format('truetype');
-        }
-
+        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'VCR OSD Mono', monospace;
-            color: var(--main-text-color);
+            font-family: 'Courier New', monospace;
+            color: #fff;
         }
-
+        
         body {
-            background-color: var(--main-bg-color);
-            padding: 30px;
-            max-width: 800px;
-            margin: 0 auto;
+            background-color: #000;
             overflow-x: hidden;
             position: relative;
         }
-
-        .container {
-            border: 2px solid var(--accent-color);
-            padding: 20px;
-            margin: 20px 0;
-            background-color: rgba(16, 0, 26, 0.8);
-            box-shadow: 5px 5px 0px var(--accent-color);
-            position: relative;
-            z-index: 10;
-        }
-
-        .scanline {
+        
+        /* Intro overlay */
+        .intro-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                to bottom,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.03) 50%,
-                rgba(255, 255, 255, 0) 100%
-            );
-            pointer-events: none;
-            animation: scanline 8s linear infinite;
-            opacity: 0.3;
-            z-index: 999;
-        }
-
-        @keyframes scanline {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(100%);
-            }
-        }
-
-        h1, h2, h3 {
-            color: var(--highlight-color);
-            text-shadow: 3px 3px var(--accent-color);
-            margin-bottom: 15px;
-        }
-
-        .motd {
-            background-color: var(--secondary-bg-color);
-            padding: 15px;
-            border: 2px dashed var(--accent-color);
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.2em;
-            animation: blink 1.5s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50%, 100% { opacity: 1; }
-            25%, 75% { opacity: 0.7; }
-        }
-
-        .cat-pic {
-            width: 100%;
-            max-width: 200px;
-            height: auto;
-            margin: 10px;
-            border: 3px solid var(--accent-color);
-            transform: rotate(-2deg);
-            transition: transform 0.3s;
-        }
-
-        .cat-pic:hover {
-            transform: rotate(2deg) scale(1.05);
-        }
-
-        .cat-pics {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             justify-content: center;
-            margin: 20px 0;
-        }
-
-        .section {
-            margin-bottom: 30px;
-        }
-
-        .section-title {
-            display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            z-index: 1000;
+            transition: opacity 0.8s ease-in-out;
         }
-
-        .section-title::before, .section-title::after {
-            content: "☆";
-            margin: 0 10px;
-            color: var(--accent-color);
+        
+        .glowing-text {
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff;
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+            animation: pulse 2s infinite;
         }
-
-        ul {
-            list-style-type: none;
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; text-shadow: 0 0 10px #fff, 0 0 20px #fff; }
+            50% { opacity: 1; text-shadow: 0 0 15px #fff, 0 0 30px #fff, 0 0 40px #fff; }
+            100% { opacity: 0.7; text-shadow: 0 0 10px #fff, 0 0 20px #fff; }
         }
-
-        li {
-            margin: 10px 0;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        li::before {
-            content: ">";
-            position: absolute;
-            left: 0;
-            color: var(--accent-color);
-        }
-
-        a {
-            color: var(--highlight-color);
-            text-decoration: none;
-            border-bottom: 1px dashed var(--highlight-color);
+        
+        .enter-btn {
+            padding: 12px 32px;
+            border: 2px solid #fff;
+            background: transparent;
+            cursor: pointer;
             transition: all 0.3s;
-        }
-
-        a:hover {
-            color: var(--accent-color);
-            border-bottom: 1px solid var(--accent-color);
-        }
-
-        .blink {
-            animation: textBlink 1s infinite;
-        }
-
-        @keyframes textBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.8em;
-            opacity: 0.7;
-        }
-
-        .cursor::after {
-            content: "_";
-            animation: cursor 1s infinite;
-        }
-
-        @keyframes cursor {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .space-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: var(--main-bg-color);
+            letter-spacing: 2px;
+            font-size: 1rem;
+            position: relative;
             overflow: hidden;
         }
-
-        .star {
+        
+        .enter-btn::before {
+            content: '';
             position: absolute;
-            background-color: white;
-            border-radius: 50%;
-            animation: twinkle 5s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 0.3; }
-        }
-
-        .shooting-star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
-            animation: shoot 8s linear infinite;
-            opacity: 0;
-        }
-
-        @keyframes shoot {
-            0% {
-                transform: translateX(-100px) translateY(0) rotate(45deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            20% {
-                transform: translateX(100vw) translateY(100vh) rotate(45deg);
-                opacity: 0;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        .black-hole-container {
-            position: absolute;
-            z-index: -2;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        .black-hole-wrapper {
-            position: relative;
+            top: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-            animation: pulsate 15s infinite ease-in-out;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.4s;
         }
-
-        .black-hole-shadow {
-            position: absolute;
-            top: -15%;
-            left: -15%;
-            width: 130%;
-            height: 130%;
-            border-radius: 50%;
-            background: radial-gradient(
-                circle, 
-                rgba(24, 0, 36, 0.2) 10%, 
-                rgba(75, 0, 130, 0.15) 30%, 
-                rgba(127, 0, 255, 0.1) 50%, 
-                rgba(127, 0, 255, 0) 70%
-            );
-            filter: blur(10px);
-            z-index: -3;
+        
+        .enter-btn:hover::before {
+            left: 100%;
         }
-
-        .black-hole-accretion {
-            position: absolute;
-            top: -20%;
-            left: -20%;
-            width: 140%;
-            height: 140%;
-            border-radius: 50%;
-            border: 4px solid transparent;
-            background: transparent;
-            box-shadow: 0 0 60px rgba(255, 102, 196, 0.3);
-            z-index: -1;
-            animation: rotate-accretion 20s linear infinite;
+        
+        .enter-btn:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 8px #fff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
         }
-
-        .black-hole-accretion::before {
-            content: "";
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border-radius: 50%;
-            background: conic-gradient(
-                from 0deg,
-                rgba(255, 102, 196, 0),
-                rgba(255, 102, 196, 0.3),
-                rgba(159, 67, 255, 0.5),
-                rgba(111, 0, 255, 0.3),
-                rgba(111, 0, 255, 0)
-            );
-            filter: blur(8px);
-            opacity: 0.8;
-            animation: rotate-accretion-reverse 15s linear infinite;
-        }
-
-        @keyframes rotate-accretion {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes rotate-accretion-reverse {
-            0% { transform: rotate(360deg); }
-            100% { transform: rotate(0deg); }
-        }
-
-        .black-hole-event-horizon {
-            position: absolute;
+        
+        /* Stars background */
+        .stars-container {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(
-                circle,
-                rgba(0, 0, 0, 1) 40%,
-                rgba(24, 0, 36, 0.8) 60%,
-                rgba(75, 0, 130, 0.5) 70%,
-                rgba(127, 0, 255, 0.2) 80%,
-                rgba(127, 0, 255, 0) 100%
-            );
-            box-shadow: 
-                inset 0 0 20px rgba(0, 0, 0, 1),
-                0 0 15px rgba(127, 0, 255, 0.5);
-            z-index: 1;
-            animation: pulse-horizon 8s infinite alternate;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
         }
-
-        @keyframes pulse-horizon {
-            0% { box-shadow: inset 0 0 20px rgba(0, 0, 0, 1), 0 0 15px rgba(127, 0, 255, 0.5); }
-            100% { box-shadow: inset 0 0 30px rgba(0, 0, 0, 1), 0 0 25px rgba(127, 0, 255, 0.7); }
-        }
-
-        .light-distortion {
+        
+        .star {
             position: absolute;
-            width: 200%;
-            height: 200%;
-            top: -50%;
-            left: -50%;
-            background: radial-gradient(
-                ellipse at center,
-                rgba(0, 0, 0, 0) 30%,
-                rgba(127, 0, 255, 0.05) 50%,
-                rgba(127, 0, 255, 0) 70%
-            );
+            background-color: #fff;
             border-radius: 50%;
-            filter: blur(20px);
-            z-index: -2;
-            animation: rotate-light 30s linear infinite;
+            animation: twinkling 3s infinite ease-in-out;
         }
-
-        @keyframes rotate-light {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        
+        @keyframes twinkling {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
         }
-
-        .gravity-lens {
+        
+        /* MOTD Banner */
+        .motd {
+            width: 100%;
+            padding: 12px;
+            text-align: center;
+            background-color: rgba(30, 30, 30, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        .motd::before {
+            content: '';
             position: absolute;
-            top: -100%;
+            top: 0;
             left: -100%;
-            width: 300%;
-            height: 300%;
-            border-radius: 50%;
-            background: radial-gradient(
-                ellipse at center,
-                rgba(0, 0, 0, 0) 30%,
-                rgba(75, 0, 130, 0.03) 40%,
-                rgba(127, 0, 255, 0.03) 50%,
-                rgba(0, 0, 0, 0) 60%
-            );
-            filter: blur(30px);
-            z-index: -5;
-            animation: lens-shift 20s ease-in-out infinite alternate;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
         }
-
-        @keyframes lens-shift {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.2); opacity: 0.8; }
+        
+        @keyframes shimmer {
+            100% { left: 150%; }
         }
-
-        @keyframes pulsate {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        
+        /* Main content */
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
         }
-
-        .galaxy {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(ellipse at center, rgba(111, 0, 255, 0.2) 0%, rgba(111, 0, 255, 0) 70%);
-            filter: blur(10px);
-            opacity: 0.3;
-            animation: rotate 100s linear infinite;
-            transform-origin: center center;
+        
+        /* Cat gallery */
+        .cat-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 20px;
+            margin: 40px 0;
         }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        
+        .cat-card {
+            background-color: rgba(30, 30, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        .nebula {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(ellipse at center, 
-                rgba(255, 102, 196, 0.1) 0%, 
-                rgba(159, 67, 255, 0.2) 30%, 
-                rgba(111, 0, 255, 0.1) 60%, 
-                rgba(0, 0, 0, 0) 100%);
-            filter: blur(20px);
-            opacity: 0.2;
-            transform-origin: center center;
-            animation: nebula-pulse 20s infinite alternate;
+        
+        .cat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         }
-
-        @keyframes nebula-pulse {
-            0% { transform: scale(1); filter: blur(20px); }
-            50% { transform: scale(1.1); filter: blur(25px); }
-            100% { transform: scale(1); filter: blur(20px); }
+        
+        .cat-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .cat-caption {
+            padding: 15px;
+            font-size: 0.9rem;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        
+        /* Text sections */
+        .text-section {
+            background-color: rgba(20, 20, 20, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.8rem;
+            opacity: 0.6;
+            letter-spacing: 1px;
+        }
+        
+        /* Animations and effects */
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Media queries */
+        @media (max-width: 768px) {
+            .glowing-text {
+                font-size: 1.8rem;
+            }
+            
+            .cat-gallery {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="space-background" id="space-background"></div>
-    <div class="scanline"></div>
-    <div class="container">
-        <div class="motd" id="motd">
-            <span class="blink">></span> might change the theme <span class="blink"><</span>
+    <!-- Intro overlay -->
+    <div class="intro-overlay" id="introOverlay">
+        <h1 class="glowing-text">eli's super duper cool evil website</h1>
+        <button class="enter-btn" id="enterBtn">ENTER</button>
+    </div>
+    
+    <!-- Stars background -->
+    <div class="stars-container" id="starsContainer"></div>
+    
+    <!-- MOTD Banner -->
+    <div class="motd" id="motdBanner">
+        // CHANGED THE THEME!!
+    </div>
+    
+    <!-- Main content -->
+    <div class="content" id="mainContent">
+        <div class="text-section">
+            <h2 class="section-title">About Me</h2>
+            <p>hihi welcome to the EVIL and EMO and DARK variant of my supa epic website, basically the same thing, ill add social links n stuff later mreow (AND ACTUALLY FILL THIS WITH STUFF ABOUT ME!!) for now, u can observe the cat pics and look at my interests n dislikes</p>
         </div>
-
-        <h1 class="cursor">eli's about page <3</h1>
-
-        <div class="section">
-            <h2 class="section-title">about me ^^</h2>
-            <p>i love cats!! they are the most divine species to ever grace us with their presence!! i'm very interested in space and everything sci-fi really, i love to sleep a lot and i'm lwk a gooner but i will heal..</p>
-        </div>
-
-        <div class="section">
-            <h2 class="section-title">kittiess!</h2>
-            <div class="cat-pics">
-                <img src="https://i.pinimg.com/736x/07/4d/cc/074dcc13cc88258cdc9f1a66895b22bc.jpg" class="cat-pic" alt="cute kitty">
-                <img src="https://i.pinimg.com/736x/f3/95/40/f395407a35bfcc7802c66efdef54ab22.jpg" class="cat-pic" alt="cute kitty">
-                <img src="https://i.pinimg.com/736x/d2/f7/27/d2f727019dcbaf15edbb06e2eb3c19d6.jpg" class="cat-pic" alt="cute kitty">
+        
+        <!-- Cat gallery -->
+        <h2 class="section-title">cat pics (not my cats)</h2>
+        <div class="cat-gallery">
+            <div class="cat-card">
+                <img src="https://i.pinimg.com/736x/d2/83/a3/d283a3e79b26d5bd18fa19049e1557b8.jpg" alt="placeholder" class="cat-img" />
+                <div class="cat-caption">haiii!!</div>
+            </div>
+            <div class="cat-card">
+                <img src="https://i.pinimg.com/736x/28/2a/dd/282adde3682b533565f99ab60f0514dd.jpg" alt="placeholder" class="cat-img" />
+                <div class="cat-caption">guess what!!</div>
+            </div>
+            <div class="cat-card">
+                <img src="https://i.pinimg.com/736x/18/60/de/1860de446e64966e47ed61c95091a4d2.jpg" alt="placeholder" class="cat-img" />
+                <div class="cat-caption">chicken butt hehe</div>
             </div>
         </div>
-
-        <div class="section">
+        
+        <div class="text-section">
             <h2 class="section-title">interests</h2>
+            <p>things that make me happysauce:</p>
             <ul>
-                <li>cats!! (obviously!)</li>
-                <li>games!!</li>
+                <li>cats</li>
+                <li>games</li>
                 <li>everything sci-fi!!</li>
+                <li>sleeping mwehehe</li>
                 <li>horror!! (i get scared easily)</li>
-                <li>sleepingg!! 💤 (professional bedrotter)</li>
+                <li>music but dont ask me abt music because then i get shy and i start to freak out because i don't know if you'll agree with my music taste and the thought of you not liking it overwhelms me and i start to sweat and get anxious so please don't ask me about my music or i could possibly die.</li>
             </ul>
         </div>
-
-        <div class="section">
-            <h2 class="section-title">find me ♥</h2>
+        
+        <div class="text-section">
+            <h2 class="section-title">dislikes</h2>
+            <p>these make me angrysauce:</p>
             <ul>
-                <li><a href="https://discordapp.com/users/585199655709835284">Discord</a></li>
-                <li><a href="https://www.roblox.com/users/5817084552/profile">Roblox</a></li>
-                <li><a href="https://steamcommunity.com/profiles/76561199201989415/">Steam</a></li>
+                <li>people who talk during movies</li>
+                <li>people</li>
+                <li>social stuff</li>
+                <li>the sun</li>
+                <li>grass</li>
+                <li>outside</li>
             </ul>
-        </div>
-
-        <div class="footer">
-            <p>© 2025 • Made with <span style="color: var(--highlight-color);">♥</span></p>
-            <p>Last updated: <span id="last-updated"></span></p>
         </div>
     </div>
-
+    
+    <footer>
+        im so sleeepyyy © 2025 eli
+    </footer>
+    
     <script>
-        document.getElementById('last-updated').textContent = new Date().toLocaleDateString();
-        
-        const spaceBackground = document.getElementById('space-background');
-
-        for (let i = 0; i < 100; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            const size = Math.random() * 2 + 0.5;
-            star.style.width = size + 'px';
-            star.style.height = size + 'px';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.animationDelay = Math.random() * 5 + 's';
-            spaceBackground.appendChild(star);
-        }
-        
-        for (let i = 0; i < 5; i++) {
-            const shootingStar = document.createElement('div');
-            shootingStar.className = 'shooting-star';
-            shootingStar.style.top = Math.random() * 50 + '%';
-            shootingStar.style.left = Math.random() * 100 + '%';
-            shootingStar.style.animationDelay = Math.random() * 15 + 's';
-            shootingStar.style.width = Math.random() * 80 + 50 + 'px';
-            spaceBackground.appendChild(shootingStar);
-        }
-        
-        for (let i = 0; i < 3; i++) {
-            const blackHoleContainer = document.createElement('div');
-            blackHoleContainer.className = 'black-hole-container';
-            const size = Math.random() * 60 + 60;
-            blackHoleContainer.style.width = size + 'px';
-            blackHoleContainer.style.height = size + 'px';
-            blackHoleContainer.style.left = Math.random() * 80 + 10 + '%';
-            blackHoleContainer.style.top = Math.random() * 80 + 10 + '%';
+        // Wait for the DOM to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get elements
+            const introOverlay = document.getElementById('introOverlay');
+            const enterBtn = document.getElementById('enterBtn');
+            const mainContent = document.getElementById('mainContent');
+            const starsContainer = document.getElementById('starsContainer');
             
-            const blackHoleWrapper = document.createElement('div');
-            blackHoleWrapper.className = 'black-hole-wrapper';
+            // Enter button click event
+            enterBtn.addEventListener('click', function() {
+                introOverlay.style.opacity = '0';
+                setTimeout(function() {
+                    introOverlay.style.display = 'none';
+                    mainContent.classList.add('fade-in');
+                }, 800);
+            });
             
-            const blackHoleShadow = document.createElement('div');
-            blackHoleShadow.className = 'black-hole-shadow';
-
-            const gravityLens = document.createElement('div');
-            gravityLens.className = 'gravity-lens';
+            // Create stars
+            function createStars() {
+                // Clear existing stars
+                starsContainer.innerHTML = '';
+                
+                // Create new stars
+                const numStars = Math.floor(window.innerWidth * window.innerHeight / 1000);
+                
+                for (let i = 0; i < numStars; i++) {
+                    const star = document.createElement('div');
+                    star.classList.add('star');
+                    
+                    // Random size between 1 and 3 pixels
+                    const size = Math.random() * 2 + 1;
+                    star.style.width = size + 'px';
+                    star.style.height = size + 'px';
+                    
+                    // Random position
+                    const left = Math.random() * 100;
+                    const top = Math.random() * 100;
+                    star.style.left = left + '%';
+                    star.style.top = top + '%';
+                    
+                    // Random animation delay
+                    star.style.animationDelay = Math.random() * 3 + 's';
+                    
+                    // Random z-index for parallax effect
+                    const zIndex = Math.floor(Math.random() * 3);
+                    star.style.zIndex = zIndex;
+                    
+                    // Add different opacity based on z-index for depth effect
+                    const opacity = 0.5 + (zIndex * 0.25);
+                    star.style.opacity = opacity;
+                    
+                    // Add to container
+                    starsContainer.appendChild(star);
+                }
+            }
             
-            const lightDistortion = document.createElement('div');
-            lightDistortion.className = 'light-distortion';
+            // Create stars initially
+            createStars();
             
-            const blackHoleAccretion = document.createElement('div');
-            blackHoleAccretion.className = 'black-hole-accretion';
+            // Create stars again on window resize
+            window.addEventListener('resize', function() {
+                // Debounce to prevent too many redraws
+                if (this.resizeTimeout) clearTimeout(this.resizeTimeout);
+                this.resizeTimeout = setTimeout(function() {
+                    createStars();
+                }, 200);
+            });
             
-            const blackHoleEventHorizon = document.createElement('div');
-            blackHoleEventHorizon.className = 'black-hole-event-horizon';
+            // Parallax effect for stars
+            document.addEventListener('mousemove', function(e) {
+                const xPos = (e.clientX / window.innerWidth) - 0.5;
+                const yPos = (e.clientY / window.innerHeight) - 0.5;
+                
+                const stars = document.querySelectorAll('.star');
+                stars.forEach(function(star) {
+                    const speed = parseInt(star.style.zIndex) + 1;
+                    const x = xPos * speed * 20;
+                    const y = yPos * speed * 20;
+                    star.style.transform = `translateX(${x}px) translateY(${y}px)`;
+                });
+            });
             
-            blackHoleWrapper.appendChild(blackHoleShadow);
-            blackHoleWrapper.appendChild(gravityLens);
-            blackHoleWrapper.appendChild(lightDistortion);
-            blackHoleWrapper.appendChild(blackHoleAccretion);
-            blackHoleWrapper.appendChild(blackHoleEventHorizon);
-            blackHoleContainer.appendChild(blackHoleWrapper);
+            // Little easter egg - konami code
+            let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+            let konamiIndex = 0;
             
-            spaceBackground.appendChild(blackHoleContainer);
-        }
-        
-        for (let i = 0; i < 4; i++) {
-            const galaxy = document.createElement('div');
-            galaxy.className = 'galaxy';
-            const size = Math.random() * 300 + 200;
-            galaxy.style.width = size + 'px';
-            galaxy.style.height = size + 'px';
-            galaxy.style.left = Math.random() * 100 - 20 + '%';
-            galaxy.style.top = Math.random() * 100 - 20 + '%';
-            galaxy.style.animationDelay = Math.random() * 10 + 's';
-            galaxy.style.zIndex = -3;
-            spaceBackground.appendChild(galaxy);
-        }
-        
-        for (let i = 0; i < 2; i++) {
-            const nebula = document.createElement('div');
-            nebula.className = 'nebula';
-            const size = Math.random() * 400 + 300;
-            nebula.style.width = size + 'px';
-            nebula.style.height = size + 'px';
-            nebula.style.left = Math.random() * 100 - 20 + '%';
-            nebula.style.top = Math.random() * 100 - 20 + '%';
-            nebula.style.animationDelay = Math.random() * 5 + 's';
-            nebula.style.zIndex = -4;
-            spaceBackground.appendChild(nebula);
-        }
+            document.addEventListener('keydown', function(e) {
+                // Check if the right key in the sequence was pressed
+                if (e.key === konamiCode[konamiIndex]) {
+                    konamiIndex++;
+                    
+                    // If the whole sequence is complete
+                    if (konamiIndex === konamiCode.length) {
+                        // Reset index
+                        konamiIndex = 0;
+                        
+                        // Do something cool
+                        document.body.style.backgroundColor = '#222';
+                        setTimeout(() => {
+                            document.body.style.backgroundColor = '#000';
+                        }, 200);
+                        
+                        const meow = new Audio();
+                        meow.src = "data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAFAAAGngCFhYWFhYWFhYWFhYWFhYWFhYWFvb29vb29vb29vb29vb29vb29vb3t7e3t7e3t7e3t7e3t7e3t7e3t7f////////////////////////////////8AAAA8TEFNRTMuOTlyAc0AAAAAAAAAABSAJAJAQgAAgAAABoaRhLc5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uAxAAABLQ/WhTRgAC0CKn9YigAIAmZUCJkFAACMGQHBzg5wcJDlAZODnBwcHCg5//5QEP/+cHBzg5wc4OcHD/5wcHBwcHBwcHODnBznBwcHCg5wYBAEAQdMXF3cPkAQaymUylwQGDofB8HwfD6PnQfh5xTr4+Hw+H0YjyPE6XUbotvF+nT587nw+Hw+j4fR8Po/lAQdVZ1bXYex8H//ygIP//KhKHwf/+UCUdNZ1VnOmXl5eX6wCDoA3Kysru7/9u1QLf/1XYMgN3/fqKjd0FYCYMqwLAQsGSwoMlMyXJU1KKsl4ZIgAEo5TgKJmUVBAcJnKAILhQ1likTMqpSRuSRKIiqx0ZAcAQUCh0iLblI4zKJVs/EkTDSZbYpHGZRKLBs8lERVY6RQOAIKAw6hHctJIrJRIXpxJEkSSOsjikTrkNyaYt3JbmXjcNI22VEUSRKsREUSRWNkUDgXvQXLpyG5NKS+PIkSSJI66fyKRuuPJY03HktzLxuGnpbRRFEkVWnEURRJFaLBu9B91Jrj4D/BwMBgCAIAgD4Pg+D4QA+eUx+H//xAD4Ph9Hwf//+D//EAPgyAPh9Hwf/5QCG5/5cqMXQdMvLy8vUIAg6OmXl5eXl5f3DpLy8v//8OkvLy/LdMvL//l5cHD9BycHBzkByg5QcHBwcHBw5QcHBw//5OcHBwcHBwcAABQMSKYRKdERBCgKJRMRVREUKCUXESipiKARMmIRKJREYiUXAyLEREYgAAwQSEwKP/K9K9SsFVRMP/7kMQMgA4JGVmsYe3BvCMr9PEACH+HABB/kVTEFNRTMuOTkuNVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVU=";
+                        meow.play();
+                    }
+                } else {
+                    // Reset if wrong key is pressed
+                    konamiIndex = 0;
+                }
+            });
+            
+            // Random console message
+            console.log('%c👻 i love cats', 'font-size:14px; color:#fff; background:#000; padding:5px;');
+        });
     </script>
 </body>
 </html>
