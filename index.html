@@ -199,6 +199,106 @@
             padding-bottom: 10px;
         }
         
+        /* Social links */
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .social-link {
+            padding: 8px 15px;
+            background-color: rgba(50, 50, 50, 0.6);
+            border-radius: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-link:hover {
+            background-color: rgba(80, 80, 80, 0.8);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Secret image modal */
+        .secret-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .secret-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .secret-img {
+            max-width: 90%;
+            max-height: 80vh;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: rgba(50, 50, 50, 0.7);
+        }
+        
+        .close-modal:hover {
+            background-color: rgba(80, 80, 80, 0.9);
+        }
+        
+        /* Music controls */
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(30, 30, 30, 0.7);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .music-controls:hover {
+            transform: scale(1.1);
+            background-color: rgba(50, 50, 50, 0.8);
+        }
+        
+        .music-icon {
+            width: 20px;
+            height: 20px;
+        }
+        
         /* Footer */
         footer {
             text-align: center;
@@ -223,6 +323,11 @@
             .cat-gallery {
                 grid-template-columns: 1fr;
             }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
@@ -246,6 +351,18 @@
         <div class="text-section">
             <h2 class="section-title">About Me</h2>
             <p>hihi welcome to the EVIL and EMO and DARK variant of my supa epic website, basically the same thing, ill add social links n stuff later mreow (AND ACTUALLY FILL THIS WITH STUFF ABOUT ME!!) for now, u can observe the cat pics and look at my interests n dislikes</p>
+        </div>
+        
+        <!-- Social links section -->
+        <div class="text-section">
+            <h2 class="section-title">find me</h2>
+            <div class="social-links">
+                <a href="#" class="social-link">discord</a>
+                <a href="#" class="social-link">twitter</a>
+                <a href="#" class="social-link">twitch</a>
+                <a href="#" class="social-link">github</a>
+                <a href="#" class="social-link">instagram</a>
+            </div>
         </div>
         
         <!-- Cat gallery -->
@@ -292,6 +409,21 @@
         </div>
     </div>
     
+    <!-- Secret image modal -->
+    <div class="secret-modal" id="secretModal">
+        <img id="secretImage" src="https://i.pinimg.com/736x/8b/30/c7/8b30c714b2e28deb08ce803f6ccb7c91.jpg" alt="Secret image" class="secret-img">
+        <button class="close-modal" id="closeModal">X</button>
+    </div>
+    
+    <!-- Music controls -->
+    <div class="music-controls" id="musicToggle">
+        <svg class="music-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18V5l12-2v13"></path>
+            <circle cx="6" cy="18" r="3"></circle>
+            <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+    </div>
+    
     <footer>
         im so sleeepyyy © 2025 eli
     </footer>
@@ -304,6 +436,32 @@
             const enterBtn = document.getElementById('enterBtn');
             const mainContent = document.getElementById('mainContent');
             const starsContainer = document.getElementById('starsContainer');
+            const secretModal = document.getElementById('secretModal');
+            const closeModal = document.getElementById('closeModal');
+            const secretImage = document.getElementById('secretImage');
+            const musicToggle = document.getElementById('musicToggle');
+            
+            // Create audio element for background music
+            const bgMusic = new Audio();
+            // Change this URL to your music file
+            bgMusic.src = "cutelovestory.mp3";
+            bgMusic.loop = true;
+            bgMusic.volume = 0.3;
+            let musicPlaying = false;
+            
+            // Music toggle
+            musicToggle.addEventListener('click', function() {
+                if (musicPlaying) {
+                    bgMusic.pause();
+                    musicToggle.style.backgroundColor = "rgba(30, 30, 30, 0.7)";
+                } else {
+                    bgMusic.play().catch(error => {
+                        console.log("Autoplay prevented: ", error);
+                    });
+                    musicToggle.style.backgroundColor = "rgba(80, 80, 80, 0.9)";
+                }
+                musicPlaying = !musicPlaying;
+            });
             
             // Enter button click event
             enterBtn.addEventListener('click', function() {
@@ -312,6 +470,11 @@
                     introOverlay.style.display = 'none';
                     mainContent.classList.add('fade-in');
                 }, 800);
+            });
+            
+            // Close secret modal
+            closeModal.addEventListener('click', function() {
+                secretModal.classList.remove('active');
             });
             
             // Create stars
@@ -379,33 +542,40 @@
                 });
             });
             
-            // Little easter egg - konami code
-            let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-            let konamiIndex = 0;
+            // New keyboard-friendly easter egg - type "eli"
+            let eliCode = ['e', 'l', 'i'];
+            let eliIndex = 0;
             
             document.addEventListener('keydown', function(e) {
+                // Get lowercase key value
+                const key = e.key.toLowerCase();
+                
                 // Check if the right key in the sequence was pressed
-                if (e.key === konamiCode[konamiIndex]) {
-                    konamiIndex++;
+                if (key === eliCode[eliIndex]) {
+                    eliIndex++;
                     
                     // If the whole sequence is complete
-                    if (konamiIndex === konamiCode.length) {
+                    if (eliIndex === eliCode.length) {
                         // Reset index
-                        konamiIndex = 0;
+                        eliIndex = 0;
                         
-                        // Do something cool
+                        // Show secret modal
+                        secretModal.classList.add('active');
+                        
+                        // Flash effect
                         document.body.style.backgroundColor = '#222';
                         setTimeout(() => {
                             document.body.style.backgroundColor = '#000';
                         }, 200);
                         
+                        // Play meow sound
                         const meow = new Audio();
                         meow.src = "data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAFAAAGngCFhYWFhYWFhYWFhYWFhYWFhYWFvb29vb29vb29vb29vb29vb29vb3t7e3t7e3t7e3t7e3t7e3t7e3t7f////////////////////////////////8AAAA8TEFNRTMuOTlyAc0AAAAAAAAAABSAJAJAQgAAgAAABoaRhLc5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//uAxAAABLQ/WhTRgAC0CKn9YigAIAmZUCJkFAACMGQHBzg5wcJDlAZODnBwcHCg5//5QEP/+cHBzg5wc4OcHD/5wcHBwcHBwcHODnBznBwcHCg5wYBAEAQdMXF3cPkAQaymUylwQGDofB8HwfD6PnQfh5xTr4+Hw+H0YjyPE6XUbotvF+nT587nw+Hw+j4fR8Po/lAQdVZ1bXYex8H//ygIP//KhKHwf/+UCUdNZ1VnOmXl5eX6wCDoA3Kysru7/9u1QLf/1XYMgN3/fqKjd0FYCYMqwLAQsGSwoMlMyXJU1KKsl4ZIgAEo5TgKJmUVBAcJnKAILhQ1likTMqpSRuSRKIiqx0ZAcAQUCh0iLblI4zKJVs/EkTDSZbYpHGZRKLBs8lERVY6RQOAIKAw6hHctJIrJRIXpxJEkSSOsjikTrkNyaYt3JbmXjcNI22VEUSRKsREUSRWNkUDgXvQXLpyG5NKS+PIkSSJI66fyKRuuPJY03HktzLxuGnpbRRFEkVWnEURRJFaLBu9B91Jrj4D/BwMBgCAIAgD4Pg+D4QA+eUx+H//xAD4Ph9Hwf//+D//EAPgyAPh9Hwf/5QCG5/5cqMXQdMvLy8vUIAg6OmXl5eXl5f3DpLy8v//8OkvLy/LdMvL//l5cHD9BycHBzkByg5QcHBwcHBw5QcHBw//5OcHBwcHBwcAABQMSKYRKdERBCgKJRMRVREUKCUXESipiKARMmIRKJREYiUXAyLEREYgAAwQSEwKP/K9K9SsFVRMP/7kMQMgA4JGVmsYe3BvCMr9PEACH+HABB/kVTEFNRTMuOTkuNVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVU=";
                         meow.play();
                     }
                 } else {
                     // Reset if wrong key is pressed
-                    konamiIndex = 0;
+                    eliIndex = 0;
                 }
             });
             
