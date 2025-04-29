@@ -99,6 +99,7 @@
             pointer-events: none;
             z-index: -1;
             overflow: hidden;
+            will-change: transform; /* Hint to browser for optimization */
         }
         
         .star {
@@ -106,6 +107,8 @@
             background-color: #fff;
             border-radius: 50%;
             animation: twinkling 3s infinite ease-in-out;
+            will-change: transform, opacity; /* Hint for browser optimization */
+            transform: translate3d(0, 0, 0); /* Enable hardware acceleration */
         }
         
         @keyframes twinkling {
@@ -307,7 +310,7 @@
     <div class="stars-container" id="starsContainer"></div>
     
     <div class="motd" id="motdBanner">
-        // if you type your name you might get a secret image!! (depends on if i made one for you)
+        // hihi!! i updated the parallax effect and made it smoother!!
     </div>
     
     <div class="content" id="mainContent">
@@ -433,9 +436,17 @@
                 tuckerModal.classList.remove('active');
             });
             
+            // OPTIMIZED STAR CREATION AND PARALLAX
+            let stars = [];
+            let mouseX = 0;
+            let mouseY = 0;
+            let ticking = false;
+            
             function createStars() {
                 starsContainer.innerHTML = '';
-                const numStars = Math.floor(window.innerWidth * window.innerHeight / 1000);
+                // Reduced number of stars for better performance
+                const numStars = Math.floor(window.innerWidth * window.innerHeight / 1500);
+                stars = []; // Reset stars array
                 
                 for (let i = 0; i < numStars; i++) {
                     const star = document.createElement('div');
@@ -452,37 +463,61 @@
                     
                     star.style.animationDelay = Math.random() * 3 + 's';
                     
+                    // Use data attributes for performance
                     const zIndex = Math.floor(Math.random() * 3);
                     star.style.zIndex = zIndex;
+                    star.dataset.parallaxDepth = zIndex + 1;
                     
                     const opacity = 0.5 + (zIndex * 0.25);
                     star.style.opacity = opacity;
                     
                     starsContainer.appendChild(star);
+                    stars.push(star);
                 }
             }
             
+            // Use requestAnimationFrame for smooth animation
+            document.addEventListener('mousemove', function(e) {
+                mouseX = (e.clientX / window.innerWidth) - 0.5;
+                mouseY = (e.clientY / window.innerHeight) - 0.5;
+                
+                if (!ticking) {
+                    window.requestAnimationFrame(updateStars);
+                    ticking = true;
+                }
+            });
+            
+            function updateStars() {
+                // Hardware-accelerated transforms
+                stars.forEach(function(star) {
+                    const speed = parseInt(star.dataset.parallaxDepth);
+                    const x = mouseX * speed * 15; // Reduced multiplier
+                    const y = mouseY * speed * 15; // Reduced multiplier
+                    star.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+                });
+                
+                ticking = false;
+            }
+            
+            // Debounce function for resize
+            function debounce(func, wait) {
+                let timeout;
+                return function() {
+                    const context = this;
+                    const args = arguments;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(function() {
+                        func.apply(context, args);
+                    }, wait);
+                };
+            }
+            
+            // Create stars initially
             createStars();
             
-            window.addEventListener('resize', function() {
-                if (this.resizeTimeout) clearTimeout(this.resizeTimeout);
-                this.resizeTimeout = setTimeout(function() {
-                    createStars();
-                }, 200);
-            });
-            
-            document.addEventListener('mousemove', function(e) {
-                const xPos = (e.clientX / window.innerWidth) - 0.5;
-                const yPos = (e.clientY / window.innerHeight) - 0.5;
-                
-                const stars = document.querySelectorAll('.star');
-                stars.forEach(function(star) {
-                    const speed = parseInt(star.style.zIndex) + 1;
-                    const x = xPos * speed * 20;
-                    const y = yPos * speed * 20;
-                    star.style.transform = `translateX(${x}px) translateY(${y}px)`;
-                });
-            });
+            // Add debounced resize handler
+            const debouncedCreateStars = debounce(createStars, 200);
+            window.addEventListener('resize', debouncedCreateStars);
             
             let eliCode = ['e', 'l', 'i'];
             let eliIndex = 0;
@@ -575,8 +610,6 @@
                     tuckerIndex = 0;
                 }
             });
-            
-            console.log('👻 i love cats');
         });
     </script>
 </body>
