@@ -302,6 +302,75 @@
     </style>
 </head>
 <body>
+<div id="music-player" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+    <button id="music-toggle" style="background: #000000; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center;">
+      <span id="music-icon">🔊</span>
+    </button>
+    <div id="youtube-player" style="display: none;"></div>
+  </div>
+  
+  <script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  
+    var player;
+    var isPlaying = false;
+    
+    function attemptAutoplay() {
+      var promise = player.playVideo();
+      
+      if (promise !== undefined) {
+        promise.catch(function() {
+          console.log("Autoplay prevented by browser policy");
+        });
+      }
+    }
+
+    var videoId = 'Sf4oFaelTr4';
+  
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('youtube-player', {
+        height: '0',
+        width: '0',
+        videoId: videoId,
+        playerVars: {
+          'autoplay': 1,
+          'controls': 0,
+          'showinfo': 0,
+          'mute': 1
+        },
+        events: {
+          'onReady': onPlayerReady
+        }
+      });
+    }
+  
+    function onPlayerReady(event) {
+      player.playVideo();
+      setTimeout(function() {
+        player.unMute();
+        player.setVolume(70);
+      }, 1000);
+      
+      isPlaying = true;
+      document.getElementById('music-icon').textContent = '🔇';
+      
+      document.getElementById('music-toggle').addEventListener('click', toggleMusic);
+    }
+  
+    function toggleMusic() {
+      if (isPlaying) {
+        player.pauseVideo();
+        document.getElementById('music-icon').textContent = '🔊';
+      } else {
+        player.playVideo();
+        document.getElementById('music-icon').textContent = '🔇';
+      }
+      isPlaying = !isPlaying;
+    }
+  </script>
     <div class="intro-overlay" id="introOverlay">
         <h1 class="glowing-text">eli's about site</h1>
         <button class="enter-btn" id="enterBtn">ENTER</button>
@@ -435,8 +504,7 @@
             closeTuckerModal.addEventListener('click', function() {
                 tuckerModal.classList.remove('active');
             });
-            
-            // OPTIMIZED STAR CREATION AND PARALLAX
+        
             let stars = [];
             let mouseX = 0;
             let mouseY = 0;
@@ -444,9 +512,8 @@
             
             function createStars() {
                 starsContainer.innerHTML = '';
-                // Reduced number of stars for better performance
                 const numStars = Math.floor(window.innerWidth * window.innerHeight / 1500);
-                stars = []; // Reset stars array
+                stars = [];
                 
                 for (let i = 0; i < numStars; i++) {
                     const star = document.createElement('div');
@@ -463,7 +530,6 @@
                     
                     star.style.animationDelay = Math.random() * 3 + 's';
                     
-                    // Use data attributes for performance
                     const zIndex = Math.floor(Math.random() * 3);
                     star.style.zIndex = zIndex;
                     star.dataset.parallaxDepth = zIndex + 1;
@@ -476,7 +542,6 @@
                 }
             }
             
-            // Use requestAnimationFrame for smooth animation
             document.addEventListener('mousemove', function(e) {
                 mouseX = (e.clientX / window.innerWidth) - 0.5;
                 mouseY = (e.clientY / window.innerHeight) - 0.5;
@@ -488,18 +553,16 @@
             });
             
             function updateStars() {
-                // Hardware-accelerated transforms
                 stars.forEach(function(star) {
                     const speed = parseInt(star.dataset.parallaxDepth);
-                    const x = mouseX * speed * 15; // Reduced multiplier
-                    const y = mouseY * speed * 15; // Reduced multiplier
+                    const x = mouseX * speed * 15;
+                    const y = mouseY * speed * 15;
                     star.style.transform = `translate3d(${x}px, ${y}px, 0)`;
                 });
                 
                 ticking = false;
             }
-            
-            // Debounce function for resize
+
             function debounce(func, wait) {
                 let timeout;
                 return function() {
@@ -512,10 +575,7 @@
                 };
             }
             
-            // Create stars initially
             createStars();
-            
-            // Add debounced resize handler
             const debouncedCreateStars = debounce(createStars, 200);
             window.addEventListener('resize', debouncedCreateStars);
             
