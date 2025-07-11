@@ -99,7 +99,7 @@
             pointer-events: none;
             z-index: -1;
             overflow: hidden;
-            will-change: transform; /* Hint to browser for optimization */
+            will-change: transform;
         }
         
         .star {
@@ -107,8 +107,8 @@
             background-color: #fff;
             border-radius: 50%;
             animation: twinkling 3s infinite ease-in-out;
-            will-change: transform, opacity; /* Hint for browser optimization */
-            transform: translate3d(0, 0, 0); /* Enable hardware acceleration */
+            will-change: transform, opacity;
+            transform: translate3d(0, 0, 0);
         }
         
         @keyframes twinkling {
@@ -392,7 +392,7 @@
         <div class="cat-gallery">
             <div class="cat-card">
                 <img src="https://i.pinimg.com/736x/d2/83/a3/d283a3e79b26d5bd18fa19049e1557b8.jpg" alt="placeholder" class="cat-img" />
-                <div class="cat-caption">haiii!!</div>
+                <div class="cat-caption">hihi!</div>
             </div>
             <div class="cat-card">
                 <img src="https://i.pinimg.com/736x/28/2a/dd/282adde3682b533565f99ab60f0514dd.jpg" alt="placeholder" class="cat-img" />
@@ -400,13 +400,13 @@
             </div>
             <div class="cat-card">
                 <img src="https://i.pinimg.com/736x/18/60/de/1860de446e64966e47ed61c95091a4d2.jpg" alt="placeholder" class="cat-img" />
-                <div class="cat-caption">chicken butt hehe</div>
+                <div class="cat-caption">chicken butt.</div>
             </div>
         </div>
         
         <div class="text-section">
             <h2 class="section-title">interests</h2>
-            <p>things that make me happysauce:</p>
+            <p>good things:</p>
             <ul>
                 <li>cats</li>
                 <li>games</li>
@@ -419,14 +419,14 @@
         
         <div class="text-section">
             <h2 class="section-title">dislikes</h2>
-            <p>these make me angrysauce:</p>
+            <p>evil things:</p>
             <ul>
-                <li>people who talk during movies</li>
+                <li>insects</li>
                 <li>people</li>
                 <li>social stuff</li>
                 <li>the sun</li>
                 <li>grass</li>
-                <li>outside</li>
+                <li>hm: outside</li>
             </ul>
         </div>
         
@@ -445,20 +445,14 @@
         <button class="close-modal" id="closeModal">X</button>
     </div>
     
-    <div class="secret-modal" id="rockModal">
-        <img id="rockImage" src="https://media.discordapp.net/attachments/1356316804305125518/1366103254110441562/heist.png?ex=680fba4c&is=680e68cc&hm=4ac68a5e31fd951484ee2f53d37e37eb59b8ca9e96d4d087e6154b48ea7b6855&=" alt="Rock image" class="secret-img">
-        <button class="close-modal" id="closeRockModal">X</button>
-    </div>
-    
     <div class="secret-modal" id="koviModal">
         <img id="koviImage" src="https://i.pinimg.com/736x/54/54/bf/5454bf7b8f4ba8d447bd8184dc4247ce.jpg" alt="Kovi image" class="secret-img">
         <button class="close-modal" id="closeKoviModal">X</button>
     </div>
     
-    <!-- New Tucker Modal -->
-    <div class="secret-modal" id="tuckerModal">
-        <img id="tuckerImage" src="https://media.discordapp.net/attachments/1300233300916572271/1366107774257332284/heist.png?ex=680fbe82&is=680e6d02&hm=9adc998ae944131f694ac6d17d93a0763d20275586d5ad517fdf1ac631e5462c&=" alt="Tucker image" class="secret-img">
-        <button class="close-modal" id="closeTuckerModal">X</button>
+    <div class="secret-modal" id="fishModal">
+        <img id="fishImage" src="https://tr.rbxcdn.com/180DAY-6e1e920afc51c036c91183f11e62cf64/420/420/Hat/Png/noFilter&=" alt="Fish image" class="secret-img">
+        <button class="close-modal" id="closeFishModal">X</button>
     </div>
     
     <footer>
@@ -474,12 +468,10 @@
             
             const secretModal = document.getElementById('secretModal');
             const closeModal = document.getElementById('closeModal');
-            const rockModal = document.getElementById('rockModal');
-            const closeRockModal = document.getElementById('closeRockModal');
             const koviModal = document.getElementById('koviModal');
             const closeKoviModal = document.getElementById('closeKoviModal');
-            const tuckerModal = document.getElementById('tuckerModal');
-            const closeTuckerModal = document.getElementById('closeTuckerModal');
+            const fishModal = document.getElementById('fishModal');
+            const closeFishModal = document.getElementById('closeFishModal');
             
             enterBtn.addEventListener('click', function() {
                 introOverlay.style.opacity = '0';
@@ -493,16 +485,12 @@
                 secretModal.classList.remove('active');
             });
             
-            closeRockModal.addEventListener('click', function() {
-                rockModal.classList.remove('active');
-            });
-            
             closeKoviModal.addEventListener('click', function() {
                 koviModal.classList.remove('active');
             });
             
-            closeTuckerModal.addEventListener('click', function() {
-                tuckerModal.classList.remove('active');
+            closeFishModal.addEventListener('click', function() {
+                fishModal.classList.remove('active');
             });
         
             let stars = [];
@@ -582,14 +570,11 @@
             let eliCode = ['e', 'l', 'i'];
             let eliIndex = 0;
             
-            let rockCode = ['r', 'o', 'c', 'k'];
-            let rockIndex = 0;
-            
             let koviCode = ['k', 'o', 'v', 'i'];
             let koviIndex = 0;
             
-            let tuckerCode = ['t', 'u', 'c', 'k', 'e', 'r'];
-            let tuckerIndex = 0;
+            let fishCode = ['f', 'i', 's', 'h'];
+            let fishIndex = 0;
             
             document.addEventListener('keydown', function(e) {
                 const key = e.key.toLowerCase();
@@ -613,25 +598,6 @@
                     eliIndex = 0;
                 }
                 
-                if (key === rockCode[rockIndex]) {
-                    rockIndex++;
-                    
-                    if (rockIndex === rockCode.length) {
-                        rockIndex = 0;
-                        rockModal.classList.add('active');
-                        
-                        document.body.style.backgroundColor = '#222';
-                        setTimeout(() => {
-                            document.body.style.backgroundColor = '#000';
-                        }, 200);
-                        
-                        const meow = createMeowSound();
-                        meow.play();
-                    }
-                } else if (key !== rockCode[0]) {
-                    rockIndex = 0;
-                }
-                
                 if (key === koviCode[koviIndex]) {
                     koviIndex++;
                     
@@ -651,12 +617,12 @@
                     koviIndex = 0;
                 }
                 
-                if (key === tuckerCode[tuckerIndex]) {
-                    tuckerIndex++;
+                if (key === fishCode[fishIndex]) {
+                    fishIndex++;
                     
-                    if (tuckerIndex === tuckerCode.length) {
-                        tuckerIndex = 0;
-                        tuckerModal.classList.add('active');
+                    if (fishIndex === fishCode.length) {
+                        fishIndex = 0;
+                        fishModal.classList.add('active');
                         
                         document.body.style.backgroundColor = '#222';
                         setTimeout(() => {
@@ -666,8 +632,8 @@
                         const meow = createMeowSound();
                         meow.play();
                     }
-                } else if (key !== tuckerCode[0]) {
-                    tuckerIndex = 0;
+                } else if (key !== fishCode[0]) {
+                    fishIndex = 0;
                 }
             });
         });
