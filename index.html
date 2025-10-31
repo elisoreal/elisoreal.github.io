@@ -9,6 +9,7 @@
     <meta property="og:description" content="counting down to eli's birthday">
     <meta property="og:image" content="https://i.pinimg.com/736x/d2/83/a3/d283a3e79b26d5bd18fa19049e1557b8.jpg">
     <meta property="og:type" content="website">
+    <script src="disco-celebration.js" defer></script>
     <style>
         * {
             margin: 0;
@@ -220,6 +221,40 @@
                 transform: translateY(0);
             }
         }
+        body.is-mobile {
+            align-items: flex-start;
+            padding: 28px 16px 48px;
+        }
+        body.is-mobile main {
+            padding: 42px 24px;
+            border-radius: 20px;
+            max-width: 520px;
+        }
+        body.is-mobile #countdown {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+        body.is-mobile .time-block {
+            padding: 22px 16px;
+        }
+        body.is-mobile .value {
+            font-size: 2.45rem;
+        }
+        body.is-mobile .sparkle-ring,
+        body.is-mobile .glow-dot {
+            display: none;
+        }
+        body.is-mobile .celebrate {
+            width: 100%;
+            margin-top: 22px;
+        }
+        body.is-mobile .bottom-note {
+            font-size: 0.9rem;
+        }
+        body.is-mobile .tagline {
+            font-size: 0.92rem;
+            line-height: 1.45;
+        }
         @media (max-width: 600px) {
             h1 {
                 font-size: 2.1rem;
@@ -272,6 +307,7 @@
             const starContainer = document.querySelector('.stars');
             const tagline = document.getElementById('tagline');
             const arrival = document.getElementById('arrival');
+            const body = document.body;
             const units = {
                 days: document.querySelector('[data-unit="days"]'),
                 hours: document.querySelector('[data-unit="hours"]'),
@@ -279,6 +315,14 @@
                 seconds: document.querySelector('[data-unit="seconds"]')
             };
             let resizeTimer;
+            const mobileByAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+            function applyLayout() {
+                const widthBased = window.innerWidth <= 640;
+                const shouldUseMobile = mobileByAgent || widthBased;
+                body.classList.toggle('is-mobile', shouldUseMobile);
+            }
+
             function createStars() {
                 starContainer.innerHTML = '';
                 const total = window.innerWidth < 620 ? 90 : 160;
@@ -295,6 +339,7 @@
                     starContainer.appendChild(star);
                 }
             }
+
             function getTargetDate() {
                 const now = new Date();
                 const year = now.getFullYear();
@@ -304,6 +349,7 @@
                 }
                 return target;
             }
+
             function updateCountdown() {
                 const now = new Date();
                 const diff = targetDate.getTime() - now.getTime();
@@ -327,15 +373,33 @@
                 units.minutes.textContent = String(minutes).padStart(2, '0');
                 units.seconds.textContent = String(seconds).padStart(2, '0');
             }
+
             createStars();
+            applyLayout();
+
             window.addEventListener('resize', function() {
                 clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(createStars, 200);
+                resizeTimer = setTimeout(function() {
+                    createStars();
+                    applyLayout();
+                }, 200);
             });
+
+            document.addEventListener('visibilitychange', function() {
+                if (document.visibilityState === 'visible') {
+                    applyLayout();
+                }
+            });
+
             const targetDate = getTargetDate();
             tagline.textContent = `November 1, ${targetDate.getFullYear()} is on the horizon.`;
+
             const timer = setInterval(updateCountdown, 1000);
             updateCountdown();
+
+            window.addEventListener('celebration:started', function() {
+                arrival.style.display = 'block';
+            });
         });
     </script>
 </body>
