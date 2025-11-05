@@ -16,19 +16,20 @@
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
         
         :root {
-            --bg-outer: #070018;
-            --bg-inner: #15062c;
-            --bg-panel: rgba(39, 20, 68, 0.75);
-            --bg-panel-strong: rgba(53, 30, 86, 0.85);
-            --bg-overlay: rgba(7, 0, 24, 0.94);
-            --accent: #c471ff;
-            --accent-strong: #f084ff;
-            --accent-soft: #8f5cff;
-            --text-main: #f3e9ff;
-            --text-muted: #cdb6f7;
-            --border-glow: rgba(196, 113, 255, 0.35);
-            --shadow-deep: rgba(5, 0, 15, 0.75);
-            --shadow-glow: rgba(196, 113, 255, 0.45);
+            --bg-outer: #f4f8ff;
+            --bg-inner: #dce9ff;
+            --bg-panel: rgba(255, 255, 255, 0.78);
+            --bg-panel-strong: rgba(224, 236, 255, 0.82);
+            --bg-overlay: rgba(233, 241, 255, 0.94);
+            --accent: #5c8dff;
+            --accent-strong: #72b4ff;
+            --accent-soft: #b8d6ff;
+            --text-main: #0e1c33;
+            --text-muted: #3c5579;
+            --border-glow: rgba(142, 186, 255, 0.45);
+            --shadow-deep: rgba(43, 72, 124, 0.28);
+            --shadow-glow: rgba(172, 206, 255, 0.6);
+            --frost-white: rgba(255, 255, 255, 0.55);
         }
         
         * {
@@ -42,22 +43,27 @@
         body {
             min-height: 100vh;
             background:
-                radial-gradient(circle at 0% 10%, rgba(140, 64, 255, 0.35), transparent 55%),
-                radial-gradient(circle at 85% 0%, rgba(236, 93, 255, 0.2), transparent 60%),
-                radial-gradient(circle at 25% 80%, rgba(61, 16, 125, 0.4), transparent 65%),
-                linear-gradient(180deg, var(--bg-outer) 0%, var(--bg-inner) 70%, #090019 100%);
+                radial-gradient(circle at 20% 12%, rgba(255, 255, 255, 0.6) 0%, transparent 55%),
+                radial-gradient(circle at 85% 8%, rgba(166, 197, 255, 0.4) 0%, transparent 58%),
+                radial-gradient(circle at 15% 78%, rgba(162, 209, 255, 0.35) 0%, transparent 62%),
+                linear-gradient(180deg, var(--bg-outer) 0%, var(--bg-inner) 52%, #aec7ff 100%),
+                url('https://www.transparenttextures.com/patterns/foggy-birds.png');
+            background-attachment: fixed, fixed, fixed, fixed, fixed;
+            background-size: cover, cover, cover, cover, auto;
             overflow-x: hidden;
             position: relative;
+            color: var(--text-main);
         }
 
         body::before {
             content: '';
             position: fixed;
-            inset: -120px;
-            background: radial-gradient(circle at 20% 30%, rgba(148, 90, 255, 0.2), transparent 55%),
-                        radial-gradient(circle at 80% 20%, rgba(255, 140, 255, 0.12), transparent 60%),
-                        radial-gradient(circle at 85% 85%, rgba(98, 52, 215, 0.2), transparent 55%);
-            filter: blur(40px);
+            inset: -140px;
+            background:
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.85) 0%, transparent 65%),
+                radial-gradient(circle at top right, rgba(214, 230, 255, 0.65) 0%, transparent 70%),
+                radial-gradient(circle at bottom left, rgba(214, 234, 255, 0.55) 0%, transparent 80%);
+            filter: blur(45px);
             z-index: -2;
         }
 
@@ -65,9 +71,13 @@
             content: '';
             position: fixed;
             inset: 0;
-            background: url('https://www.transparenttextures.com/patterns/cubes.png');
-            opacity: 0.08;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0) 40%),
+                linear-gradient(0deg, rgba(190, 214, 255, 0.32), transparent),
+                url('https://www.transparenttextures.com/patterns/ice.png');
+            opacity: 0.45;
             z-index: -1;
+            pointer-events: none;
         }
 
         body::-webkit-scrollbar {
@@ -75,24 +85,24 @@
         }
 
         body::-webkit-scrollbar-track {
-            background: rgba(13, 0, 30, 0.6);
+            background: rgba(190, 214, 255, 0.6);
             border-radius: 10px;
         }
 
         body::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, rgba(120, 54, 188, 0.9), rgba(240, 132, 255, 0.85));
+            background: linear-gradient(180deg, rgba(121, 167, 255, 0.95), rgba(91, 142, 242, 0.9));
             border-radius: 10px;
-            border: 2px solid rgba(10, 0, 28, 0.8);
-            box-shadow: inset 0 0 10px rgba(240, 132, 255, 0.45);
+            border: 2px solid rgba(221, 235, 255, 0.85);
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
         body::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, rgba(240, 132, 255, 0.95), rgba(120, 54, 188, 0.95));
+            background: linear-gradient(180deg, rgba(91, 142, 242, 0.95), rgba(71, 117, 217, 0.95));
         }
 
         * {
             scrollbar-width: thin;
-            scrollbar-color: rgba(240, 132, 255, 0.8) rgba(13, 0, 30, 0.7);
+            scrollbar-color: rgba(121, 167, 255, 0.85) rgba(221, 235, 255, 0.75);
         }
         
         a {
@@ -102,7 +112,7 @@
         
         a:hover {
             text-decoration: underline;
-            text-shadow: 0 0 6px rgba(240, 132, 255, 0.4);
+            text-shadow: 0 0 8px rgba(124, 173, 255, 0.55);
         }
         
         .intro-overlay {
@@ -112,14 +122,14 @@
             width: 100%;
             height: 100%;
             background: var(--bg-overlay);
-            backdrop-filter: blur(14px);
+            backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 1000;
             transition: opacity 0.8s ease-in-out;
-            box-shadow: inset 0 0 80px var(--shadow-glow);
+            box-shadow: inset 0 0 90px rgba(154, 190, 255, 0.38);
             padding: 40px 20px;
         }
 
@@ -127,9 +137,9 @@
             position: relative;
             padding: 60px 50px 50px;
             border-radius: 28px;
-            background: linear-gradient(145deg, rgba(18, 6, 36, 0.95), rgba(34, 14, 64, 0.92));
-            border: 1px solid rgba(240, 132, 255, 0.4);
-            box-shadow: 0 30px 90px rgba(8, 0, 24, 0.85);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(226, 239, 255, 0.95));
+            border: 1px solid rgba(142, 186, 255, 0.45);
+            box-shadow: 0 24px 70px rgba(94, 128, 186, 0.2);
             text-align: center;
             overflow: hidden;
         }
@@ -142,7 +152,7 @@
             width: 260px;
             height: 260px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(240, 132, 255, 0.22), transparent 70%);
+            background: radial-gradient(circle, rgba(142, 186, 255, 0.4), transparent 70%);
         }
 
         .overlay-card::after {
@@ -153,14 +163,15 @@
             width: 240px;
             height: 240px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(120, 54, 188, 0.28), transparent 65%);
+            background: radial-gradient(circle, rgba(188, 219, 255, 0.35), transparent 65%);
         }
 
         .glowing-text {
             font-size: 2.2rem;
             font-family: 'Press Start 2P', cursive;
             text-transform: uppercase;
-            text-shadow: 0 0 15px var(--accent), 0 0 35px var(--accent-soft), 0 0 55px var(--accent-strong);
+            color: #1f3d6a;
+            text-shadow: 0 0 15px rgba(118, 166, 255, 0.8), 0 0 35px rgba(180, 213, 255, 0.9);
             margin-bottom: 30px;
             letter-spacing: 4px;
             animation: pulse 2.6s infinite;
@@ -174,11 +185,11 @@
             right: -18px;
             font-family: 'Press Start 2P', cursive;
             font-size: 0.58rem;
-            color: #ffd84d;
+            color: #7fc7ff;
             text-transform: uppercase;
             letter-spacing: 1px;
             transform: rotate(18deg);
-            text-shadow: 2px 2px 0 #3c2500, -1px -1px 0 rgba(255, 240, 190, 0.4);
+            text-shadow: 2px 2px 0 rgba(17, 51, 97, 0.25), -1px -1px 0 rgba(231, 243, 255, 0.6);
             white-space: nowrap;
             pointer-events: none;
             animation: splash-bob 3s ease-in-out infinite;
@@ -201,7 +212,7 @@
         
         .overlay-sub {
             font-size: 0.9rem;
-            color: rgba(205, 182, 247, 0.8);
+            color: rgba(44, 78, 128, 0.75);
             letter-spacing: 1.5px;
             margin-bottom: 26px;
             text-transform: uppercase;
@@ -210,16 +221,16 @@
 
         .enter-btn {
             padding: 12px 32px;
-            border: 2px solid var(--accent);
-            background: rgba(23, 8, 47, 0.7);
+            border: 2px solid rgba(118, 166, 255, 0.9);
+            background: linear-gradient(135deg, rgba(124, 174, 255, 0.95), rgba(94, 140, 242, 0.95));
             cursor: pointer;
             transition: all 0.3s;
             letter-spacing: 2px;
             font-size: 1rem;
             position: relative;
             overflow: hidden;
-            color: var(--accent-strong);
-            box-shadow: 0 0 20px rgba(132, 68, 210, 0.3);
+            color: #f8fbff;
+            box-shadow: 0 0 22px rgba(130, 180, 255, 0.45);
         }
         
         .enter-btn::before {
@@ -229,7 +240,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(240, 132, 255, 0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
             transition: all 0.4s;
         }
         
@@ -239,9 +250,9 @@
         
         .enter-btn:hover {
             transform: scale(1.05);
-            text-shadow: 0 0 10px var(--accent-strong);
-            box-shadow: 0 0 25px rgba(240, 132, 255, 0.45);
-            background: rgba(43, 16, 86, 0.85);
+            text-shadow: 0 0 10px rgba(214, 236, 255, 0.85);
+            box-shadow: 0 0 28px rgba(124, 174, 255, 0.6);
+            background: linear-gradient(135deg, rgba(146, 194, 255, 0.98), rgba(102, 152, 242, 0.98));
         }
 
         .enter-hint {
@@ -249,49 +260,54 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: rgba(205, 182, 247, 0.6);
+            color: rgba(44, 78, 128, 0.6);
         }
         
-        .stars-container {
+        .snow-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: -1;
+            z-index: 0;
             overflow: hidden;
-            will-change: transform; /* Hint to browser for optimization */
         }
         
-        .star {
+        .snowflake {
             position: absolute;
-            background-color: rgba(244, 210, 255, 0.9);
+            top: -12%;
+            width: var(--size, 10px);
+            height: var(--size, 10px);
             border-radius: 50%;
-            animation: twinkling 3s infinite ease-in-out;
-            will-change: transform, opacity; /* Hint for browser optimization */
-            transform: translate3d(0, 0, 0); /* Enable hardware acceleration */
-            box-shadow: 0 0 12px var(--accent-soft);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.65) 60%, rgba(255, 255, 255, 0.05) 100%);
+            box-shadow: 0 0 10px rgba(210, 230, 255, 0.6);
+            animation: snowfall var(--fall-duration, 12s) linear infinite;
+            will-change: transform, opacity;
+            transform: translate3d(0, 0, 0);
+            pointer-events: none;
+            opacity: var(--flake-opacity, 0.85);
         }
         
-        @keyframes twinkling {
-            0% { opacity: 0.3; }
-            50% { opacity: 1; }
-            100% { opacity: 0.3; }
+        @keyframes snowfall {
+            0% { transform: translate3d(var(--drift, 0px), -10vh, 0); opacity: 0; }
+            10% { opacity: 0.9; }
+            100% { transform: translate3d(calc(var(--drift, 0px) * 1.4), 110vh, 0); opacity: 0; }
         }
+
         
         .motd {
             width: 100%;
             padding: 12px;
             text-align: center;
-            background: linear-gradient(135deg, rgba(34, 16, 61, 0.85), rgba(57, 28, 93, 0.9));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(220, 235, 255, 0.9));
             border-bottom: 1px solid var(--border-glow);
             position: relative;
             overflow: hidden;
             font-size: 0.9rem;
             letter-spacing: 1px;
-            box-shadow: 0 12px 30px var(--shadow-deep);
-            color: var(--text-muted);
+            box-shadow: 0 12px 32px rgba(115, 157, 216, 0.25);
+            color: rgba(30, 59, 98, 0.8);
         }
         
         .motd::before {
@@ -301,7 +317,7 @@
             left: -100%;
             width: 50%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(240, 132, 255, 0.25), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
             animation: shimmer 3s infinite;
         }
         
@@ -316,11 +332,11 @@
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 1s ease, transform 1s ease;
-            background-color: rgba(10, 0, 28, 0.55);
+            background-color: rgba(255, 255, 255, 0.78);
             border: 1px solid var(--border-glow);
             border-radius: 28px;
-            box-shadow: 0 30px 80px var(--shadow-deep);
-            backdrop-filter: blur(12px);
+            box-shadow: 0 24px 60px rgba(116, 154, 215, 0.2);
+            backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
         }
@@ -332,7 +348,7 @@
             width: 320px;
             height: 320px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(240, 132, 255, 0.18), transparent 70%);
+            background: radial-gradient(circle, rgba(160, 200, 255, 0.28), transparent 70%);
             filter: blur(8px);
             opacity: 0.7;
             z-index: -1;
@@ -346,6 +362,7 @@
         .content::after {
             bottom: -160px;
             left: -140px;
+            background: radial-gradient(circle, rgba(196, 224, 255, 0.25), transparent 70%);
         }
         
         .section-group {
@@ -376,13 +393,13 @@
             border-radius: 16px;
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            box-shadow: 0 12px 30px rgba(12, 0, 24, 0.55);
+            box-shadow: 0 10px 26px rgba(120, 160, 215, 0.2);
         }
         
         .cat-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 18px 40px rgba(20, 0, 42, 0.6);
-            border-color: rgba(240, 132, 255, 0.5);
+            box-shadow: 0 14px 32px rgba(100, 144, 210, 0.26);
+            border-color: rgba(142, 186, 255, 0.6);
         }
         
         .cat-img {
@@ -406,7 +423,7 @@
             border-radius: 18px;
             padding: 30px;
             margin: 30px 0;
-            box-shadow: 0 18px 45px rgba(14, 0, 32, 0.6);
+            box-shadow: 0 18px 45px rgba(110, 150, 210, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -419,7 +436,7 @@
             width: 240px;
             height: 240px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(240, 132, 255, 0.18), transparent 70%);
+            background: radial-gradient(circle, rgba(168, 206, 255, 0.28), transparent 70%);
             opacity: 0.8;
             pointer-events: none;
             z-index: 0;
@@ -433,7 +450,7 @@
             width: 240px;
             height: 240px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(120, 54, 188, 0.18), transparent 70%);
+            background: radial-gradient(circle, rgba(204, 229, 255, 0.25), transparent 70%);
             opacity: 0.8;
             pointer-events: none;
             z-index: 0;
@@ -448,10 +465,10 @@
             font-size: 1.5rem;
             margin-bottom: 15px;
             letter-spacing: 2px;
-            border-bottom: 1px solid rgba(240, 132, 255, 0.35);
+            border-bottom: 1px solid rgba(142, 186, 255, 0.45);
             padding-bottom: 10px;
-            color: var(--accent-strong);
-            text-shadow: 0 0 10px rgba(200, 113, 255, 0.35);
+            color: rgba(32, 70, 128, 0.92);
+            text-shadow: 0 0 15px rgba(176, 210, 255, 0.6);
         }
 
         .text-section p,
@@ -487,11 +504,11 @@
         }
 
         .text-section.featured {
-            background: linear-gradient(145deg, rgba(39, 20, 68, 0.9), rgba(63, 28, 104, 0.9));
+            background: linear-gradient(145deg, rgba(241, 248, 255, 0.95), rgba(214, 233, 255, 0.95));
         }
 
         .text-section.featured::before {
-            background: radial-gradient(circle, rgba(240, 132, 255, 0.22), transparent 72%);
+            background: radial-gradient(circle, rgba(165, 207, 255, 0.35), transparent 72%);
         }
 
         .text-section.compact {
@@ -512,19 +529,19 @@
         
         .social-link {
             padding: 8px 18px;
-            background: linear-gradient(135deg, rgba(76, 34, 132, 0.8), rgba(120, 54, 188, 0.85));
+            background: linear-gradient(135deg, rgba(198, 223, 255, 0.9), rgba(146, 191, 255, 0.94));
             border-radius: 24px;
             text-decoration: none;
             transition: all 0.3s ease;
             border: 1px solid var(--border-glow);
-            color: var(--text-main);
-            box-shadow: 0 10px 25px rgba(18, 0, 36, 0.5);
+            color: rgba(26, 52, 94, 0.9);
+            box-shadow: 0 10px 25px rgba(115, 157, 216, 0.25);
         }
         
         .social-link:hover {
-            background: linear-gradient(135deg, rgba(120, 54, 188, 0.9), rgba(240, 132, 255, 0.9));
+            background: linear-gradient(135deg, rgba(221, 235, 255, 0.98), rgba(165, 206, 255, 0.98));
             transform: translateY(-3px);
-            box-shadow: 0 12px 28px rgba(26, 0, 55, 0.55);
+            box-shadow: 0 12px 28px rgba(128, 168, 230, 0.32);
         }
         
         .secret-modal {
@@ -533,8 +550,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(7, 0, 20, 0.92);
-            backdrop-filter: blur(12px);
+            background: rgba(223, 236, 255, 0.75);
+            backdrop-filter: blur(10px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -552,8 +569,8 @@
         .secret-img {
             max-width: 90%;
             max-height: 80vh;
-            border: 2px solid rgba(240, 132, 255, 0.35);
-            box-shadow: 0 0 35px rgba(200, 113, 255, 0.35);
+            border: 2px solid rgba(146, 191, 255, 0.5);
+            box-shadow: 0 0 35px rgba(128, 170, 237, 0.45);
             border-radius: 16px;
         }
         
@@ -567,13 +584,13 @@
             cursor: pointer;
             padding: 6px 12px;
             border-radius: 8px;
-            background-color: rgba(120, 54, 188, 0.85);
-            color: var(--text-main);
-            box-shadow: 0 10px 25px rgba(26, 0, 55, 0.6);
+            background: linear-gradient(135deg, rgba(221, 235, 255, 0.96), rgba(152, 196, 255, 0.96));
+            color: rgba(29, 61, 112, 0.9);
+            box-shadow: 0 10px 25px rgba(122, 166, 232, 0.35);
         }
         
         .close-modal:hover {
-            background-color: rgba(240, 132, 255, 0.9);
+            background: linear-gradient(135deg, rgba(239, 246, 255, 0.98), rgba(172, 209, 255, 0.98));
         }
         
         footer {
@@ -589,17 +606,17 @@
             margin-top: 50px;
             background: var(--bg-panel-strong);
             border-radius: 20px;
-            border: 1px solid rgba(240, 132, 255, 0.3);
+            border: 1px solid rgba(146, 191, 255, 0.45);
             padding: 30px;
-            box-shadow: 0 20px 60px rgba(18, 0, 40, 0.55);
+            box-shadow: 0 20px 60px rgba(125, 166, 230, 0.28);
         }
 
         .comment-section h3 {
             font-size: 1.3rem;
             margin-bottom: 18px;
             letter-spacing: 1px;
-            color: var(--accent-strong);
-            text-shadow: 0 0 12px rgba(200, 113, 255, 0.35);
+            color: rgba(32, 70, 128, 0.92);
+            text-shadow: 0 0 12px rgba(180, 213, 255, 0.55);
         }
 
         .comment-form {
@@ -610,8 +627,8 @@
 
         .comment-form input,
         .comment-form textarea {
-            background: rgba(16, 6, 36, 0.85);
-            border: 1px solid rgba(240, 132, 255, 0.25);
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(146, 191, 255, 0.35);
             border-radius: 14px;
             padding: 14px 16px;
             color: var(--text-main);
@@ -632,8 +649,8 @@
         .comment-form input:focus,
         .comment-form textarea:focus {
             outline: none;
-            border-color: rgba(240, 132, 255, 0.6);
-            box-shadow: 0 0 0 2px rgba(120, 54, 188, 0.35);
+            border-color: rgba(118, 166, 255, 0.75);
+            box-shadow: 0 0 0 2px rgba(171, 206, 255, 0.45);
             transform: translateY(-1px);
         }
 
@@ -641,9 +658,9 @@
             justify-self: flex-start;
             padding: 12px 28px;
             border-radius: 999px;
-            border: 1px solid rgba(240, 132, 255, 0.5);
-            background: linear-gradient(135deg, rgba(120, 54, 188, 0.95), rgba(240, 132, 255, 0.95));
-            color: var(--text-main);
+            border: 1px solid rgba(146, 191, 255, 0.6);
+            background: linear-gradient(135deg, rgba(205, 230, 255, 0.95), rgba(146, 191, 255, 0.95));
+            color: rgba(32, 70, 128, 0.95);
             font-weight: 600;
             letter-spacing: 1px;
             cursor: pointer;
@@ -652,7 +669,7 @@
 
         .comment-form button:hover {
             transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 12px 24px rgba(26, 0, 55, 0.6);
+            box-shadow: 0 12px 24px rgba(134, 178, 242, 0.4);
         }
 
         .comment-form button:disabled {
@@ -668,12 +685,12 @@
         }
 
         .comment-card {
-            background: rgba(18, 6, 36, 0.85);
+            background: rgba(255, 255, 255, 0.85);
             border-radius: 16px;
-            border: 1px solid rgba(240, 132, 255, 0.2);
+            border: 1px solid rgba(146, 191, 255, 0.35);
             padding: 18px;
             position: relative;
-            box-shadow: 0 12px 30px rgba(10, 0, 24, 0.6);
+            box-shadow: 0 10px 26px rgba(142, 186, 255, 0.2);
         }
 
         .comment-meta {
@@ -686,13 +703,13 @@
 
         .comment-name {
             font-weight: 600;
-            color: var(--accent-strong);
+            color: rgba(32, 70, 128, 0.95);
             letter-spacing: 0.5px;
         }
 
         .comment-time {
             font-size: 0.75rem;
-            color: rgba(205, 182, 247, 0.65);
+            color: rgba(66, 94, 136, 0.65);
         }
 
         .comment-message {
@@ -706,8 +723,8 @@
             top: 12px;
             right: 12px;
             border: none;
-            background: rgba(240, 132, 255, 0.1);
-            color: rgba(240, 132, 255, 0.9);
+            background: rgba(146, 191, 255, 0.18);
+            color: rgba(32, 70, 128, 0.8);
             border-radius: 999px;
             padding: 6px 12px;
             cursor: pointer;
@@ -717,13 +734,13 @@
         }
 
         .delete-comment:hover {
-            background: rgba(240, 132, 255, 0.35);
+            background: rgba(146, 191, 255, 0.35);
             transform: translateY(-1px);
         }
 
         .no-comments {
             text-align: center;
-            color: rgba(205, 182, 247, 0.7);
+            color: rgba(66, 94, 136, 0.7);
             font-style: italic;
         }
 
@@ -733,7 +750,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(5, 0, 15, 0.85);
+            background: rgba(224, 237, 255, 0.8);
             backdrop-filter: blur(8px);
             z-index: 3000;
             opacity: 0;
@@ -749,19 +766,19 @@
         .disclaimer-card {
             max-width: 460px;
             width: 90%;
-            background: rgba(16, 6, 36, 0.95);
+            background: rgba(255, 255, 255, 0.92);
             border-radius: 20px;
-            border: 1px solid rgba(240, 132, 255, 0.4);
+            border: 1px solid rgba(146, 191, 255, 0.45);
             padding: 28px;
-            box-shadow: 0 25px 70px rgba(12, 0, 28, 0.75);
+            box-shadow: 0 25px 70px rgba(128, 170, 237, 0.35);
             text-align: center;
         }
 
         .disclaimer-card h4 {
             font-size: 1.1rem;
             margin-bottom: 16px;
-            color: var(--accent-strong);
-            text-shadow: 0 0 12px rgba(200, 113, 255, 0.4);
+            color: rgba(32, 70, 128, 0.9);
+            text-shadow: 0 0 12px rgba(176, 210, 255, 0.45);
         }
 
         .disclaimer-card p {
@@ -780,16 +797,16 @@
         .disclaimer-actions button {
             padding: 10px 22px;
             border-radius: 999px;
-            border: 1px solid rgba(240, 132, 255, 0.5);
+            border: 1px solid rgba(146, 191, 255, 0.6);
             cursor: pointer;
-            background: linear-gradient(135deg, rgba(120, 54, 188, 0.95), rgba(240, 132, 255, 0.95));
-            color: var(--text-main);
+            background: linear-gradient(135deg, rgba(204, 229, 255, 0.95), rgba(146, 191, 255, 0.95));
+            color: rgba(32, 70, 128, 0.9);
             font-weight: 600;
         }
 
         .disclaimer-actions button.secondary {
             background: transparent;
-            border-color: rgba(240, 132, 255, 0.3);
+            border-color: rgba(146, 191, 255, 0.35);
             color: var(--text-muted);
         }
         
@@ -838,6 +855,7 @@
             .comment-section {
                 padding: 24px;
             }
+
         }
     </style>
 </head>
@@ -862,7 +880,7 @@
         </div>
     </div>
     
-    <div class="stars-container" id="starsContainer"></div>
+    <div class="snow-container" id="snowContainer"></div>
     
     <div class="motd" id="motdBanner">
         // comments aren't fully functional yet
@@ -920,7 +938,6 @@
                 <h2 class="section-title">dislikes</h2>
                 <p>these make me angrysauce:</p>
                 <ul>
-                    <li>people who talk during movies</li>
                     <li>people</li>
                     <li>social stuff</li>
                     <li>the sun</li>
@@ -973,7 +990,7 @@
             const introOverlay = document.getElementById('introOverlay');
             const enterBtn = document.getElementById('enterBtn');
             const mainContent = document.getElementById('mainContent');
-            const starsContainer = document.getElementById('starsContainer');
+            const snowContainer = document.getElementById('snowContainer');
             const splashQuote = document.getElementById('splashQuote');
             
             const secretModal = document.getElementById('secretModal');
@@ -1269,62 +1286,42 @@
                 tuckerModal.classList.remove('active');
             });
         
-            let stars = [];
-            let mouseX = 0;
-            let mouseY = 0;
-            let ticking = false;
-            
-            function createStars() {
-                starsContainer.innerHTML = '';
-                const numStars = Math.floor(window.innerWidth * window.innerHeight / 1500);
-                stars = [];
-                
-                for (let i = 0; i < numStars; i++) {
-                    const star = document.createElement('div');
-                    star.classList.add('star');
-                    
-                    const size = Math.random() * 2 + 1;
-                    star.style.width = size + 'px';
-                    star.style.height = size + 'px';
-                    
-                    const left = Math.random() * 100;
-                    const top = Math.random() * 100;
-                    star.style.left = left + '%';
-                    star.style.top = top + '%';
-                    
-                    star.style.animationDelay = Math.random() * 3 + 's';
-                    
-                    const zIndex = Math.floor(Math.random() * 3);
-                    star.style.zIndex = zIndex;
-                    star.dataset.parallaxDepth = zIndex + 1;
-                    
-                    const opacity = 0.5 + (zIndex * 0.25);
-                    star.style.opacity = opacity;
-                    
-                    starsContainer.appendChild(star);
-                    stars.push(star);
+            function createSnowfall() {
+                if (!snowContainer) {
+                    return;
                 }
-            }
-            
-            document.addEventListener('mousemove', function(e) {
-                mouseX = (e.clientX / window.innerWidth) - 0.5;
-                mouseY = (e.clientY / window.innerHeight) - 0.5;
-                
-                if (!ticking) {
-                    window.requestAnimationFrame(updateStars);
-                    ticking = true;
+
+                const targetCount = Math.max(80, Math.min(140, Math.floor(window.innerWidth * window.innerHeight / 5500)));
+                const currentCount = snowContainer.children.length;
+
+                if (currentCount > targetCount) {
+                    while (snowContainer.children.length > targetCount) {
+                        snowContainer.removeChild(snowContainer.lastChild);
+                    }
+                    return;
                 }
-            });
-            
-            function updateStars() {
-                stars.forEach(function(star) {
-                    const speed = parseInt(star.dataset.parallaxDepth);
-                    const x = mouseX * speed * 15;
-                    const y = mouseY * speed * 15;
-                    star.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-                });
-                
-                ticking = false;
+
+                const fragment = document.createDocumentFragment();
+
+                for (let i = currentCount; i < targetCount; i++) {
+                    const flake = document.createElement('div');
+                    flake.className = 'snowflake';
+
+                    const size = (Math.random() * 8 + 8).toFixed(2);
+                    flake.style.left = Math.random() * 100 + '%';
+                    flake.style.animationDelay = Math.random() * 8 + 's';
+                    flake.style.setProperty('--drift', (Math.random() * 50 - 25).toFixed(2) + 'px');
+                    flake.style.setProperty('--size', size + 'px');
+                    flake.style.setProperty('--fall-duration', (7 + Math.random() * 9).toFixed(2) + 's');
+                    flake.style.opacity = (Math.random() * 0.3 + 0.7).toFixed(2);
+                    flake.style.setProperty('--flake-opacity', flake.style.opacity);
+
+                    fragment.appendChild(flake);
+                }
+
+                if (fragment.childNodes.length) {
+                    snowContainer.appendChild(fragment);
+                }
             }
 
             function debounce(func, wait) {
@@ -1339,9 +1336,9 @@
                 };
             }
             
-            createStars();
-            const debouncedCreateStars = debounce(createStars, 200);
-            window.addEventListener('resize', debouncedCreateStars);
+            createSnowfall();
+            const debouncedCreateSnowfall = debounce(createSnowfall, 200);
+            window.addEventListener('resize', debouncedCreateSnowfall);
             
             let eliCode = ['e', 'l', 'i'];
             let eliIndex = 0;
@@ -1382,9 +1379,9 @@
                         eliIndex = 0;
                         secretModal.classList.add('active');
                         
-                        document.body.style.backgroundColor = '#2a1751';
+                        document.body.style.backgroundColor = '#8fb8ff';
                         setTimeout(() => {
-                            document.body.style.backgroundColor = '#070018';
+                            document.body.style.backgroundColor = '#f4f8ff';
                         }, 200);
                         
                         const meow = createMeowSound();
@@ -1401,9 +1398,9 @@
                         rockIndex = 0;
                         rockModal.classList.add('active');
                         
-                        document.body.style.backgroundColor = '#2a1751';
+                        document.body.style.backgroundColor = '#8fb8ff';
                         setTimeout(() => {
-                            document.body.style.backgroundColor = '#070018';
+                            document.body.style.backgroundColor = '#f4f8ff';
                         }, 200);
                         
                         const meow = createMeowSound();
@@ -1420,9 +1417,9 @@
                         koviIndex = 0;
                         koviModal.classList.add('active');
                         
-                        document.body.style.backgroundColor = '#2a1751';
+                        document.body.style.backgroundColor = '#8fb8ff';
                         setTimeout(() => {
-                            document.body.style.backgroundColor = '#070018';
+                            document.body.style.backgroundColor = '#f4f8ff';
                         }, 200);
                         
                         const meow = createMeowSound();
@@ -1439,9 +1436,9 @@
                         tuckerIndex = 0;
                         tuckerModal.classList.add('active');
                         
-                        document.body.style.backgroundColor = '#2a1751';
+                        document.body.style.backgroundColor = '#8fb8ff';
                         setTimeout(() => {
-                            document.body.style.backgroundColor = '#070018';
+                            document.body.style.backgroundColor = '#f4f8ff';
                         }, 200);
                         
                         const meow = createMeowSound();
