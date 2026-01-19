@@ -21,6 +21,8 @@ const commentName = document.querySelector("#comment-name");
 const commentMessage = document.querySelector("#comment-message");
 const commentStatus = document.querySelector("#comment-status");
 const commentsList = document.querySelector("#comments-list");
+const adminKeyInput = document.querySelector("#admin-key");
+const adminUnlock = document.querySelector("#admin-unlock");
 let fadeTimer = null;
 let lastCommentAt = null;
 
@@ -266,20 +268,22 @@ async function deleteComment(id) {
   setCommentStatus("deleting...", false);
 
   try {
-    const response = await fetch(
-      `${supabaseUrl}/rest/v1/${commentsTable}?id=eq.${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          apikey: supabaseAnonKey,
-          Authorization: `Bearer ${supabaseAnonKey}`,
-          "x-admin-key": adminKey
-        }
-      }
-    );
+    const response = await fetch(`${supabaseUrl}/rest/v1/rpc/delete_comment`, {
+      method: "POST",
+      headers: {
+        apikey: supabaseAnonKey,
+        Authorization: `Bearer ${supabaseAnonKey}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        comment_id: Number(id),
+        admin_key: adminKey
+      })
+    });
 
     if (!response.ok) {
-      throw new Error("delete failed");
+      const details = await response.text();
+      throw new Error(details || "delete failed");
     }
 
     const card = commentsList.querySelector(`[data-id="${id}"]`);
@@ -289,7 +293,7 @@ async function deleteComment(id) {
 
     setCommentStatus("deleted.", false);
   } catch (error) {
-    setCommentStatus("could not delete comment.", true);
+    setCommentStatus("could not delete comment. check admin key.", true);
   }
 }
 
@@ -315,5 +319,20 @@ if (commentsList) {
     }
 
     deleteComment(button.dataset.id);
+  });
+}
+
+if (adminUnlock && adminKeyInput) {
+  adminUnlock.addEventListener("click", () => {
+    const value = adminKeyInput.value.trim();
+    if (!value) {
+      setCommentStatus("enter admin key.", true);
+      return;
+    }
+
+    window.localStorage.setItem(adminKeyStorage, value);
+    adminKeyInput.value = "";
+    setCommentStatus("admin unlocked.", false);
+    fetchComments();
   });
 }
