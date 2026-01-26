@@ -24,13 +24,13 @@ const commentsList = document.querySelector("#comments-list");
 const adminKeyInput = document.querySelector("#admin-key");
 const adminUnlock = document.querySelector("#admin-unlock");
 let fadeTimer = null;
-let lastCommentAt = null;
 
 const supabaseUrl = "https://rrdixnojnabbjlzmkuzs.supabase.co";
 const supabaseAnonKey = "sb_publishable_oQjmIEphVy1xiYspwrWdgg_EraC0t6D";
 const commentsTable = "comments";
 const cooldownMs = 3 * 60 * 1000;
 const adminKeyStorage = "pawzy_admin_key";
+const commentCooldownStorage = "pawzy_comment_cooldown_at";
 
 function fadeInAudio(targetVolume, durationMs) {
   if (!bgAudio) {
@@ -187,7 +187,6 @@ async function fetchComments() {
     }
 
     const rows = await response.json();
-    lastCommentAt = rows.length ? rows[0].created_at : null;
     rows.forEach((row) => {
       commentsList.appendChild(renderComment(row));
     });
@@ -212,11 +211,11 @@ async function submitComment(event) {
     return;
   }
 
-  if (lastCommentAt) {
-    const lastTime = new Date(lastCommentAt).getTime();
+  const lastLocal = Number(window.localStorage.getItem(commentCooldownStorage));
+  if (!Number.isNaN(lastLocal) && lastLocal > 0) {
     const now = Date.now();
-    if (!Number.isNaN(lastTime) && now - lastTime < cooldownMs) {
-      const remaining = Math.ceil((cooldownMs - (now - lastTime)) / 1000);
+    if (now - lastLocal < cooldownMs) {
+      const remaining = Math.ceil((cooldownMs - (now - lastLocal)) / 1000);
       setCommentStatus(`cooldown: wait ${remaining}s.`, true);
       return;
     }
@@ -249,9 +248,9 @@ async function submitComment(event) {
 
     if (saved && saved.length) {
       commentsList.prepend(renderComment(saved[0]));
-      lastCommentAt = saved[0].created_at;
     }
 
+    window.localStorage.setItem(commentCooldownStorage, String(Date.now()));
     setCommentStatus("posted!", false);
   } catch (error) {
     setCommentStatus("could not post comment. cooldown or setup issue.", true);
