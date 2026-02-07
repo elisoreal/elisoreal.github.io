@@ -6,7 +6,7 @@ const quotes = [
   "gimme suggestions 👀"
 ];
 
-const motdText = "ly guys";
+const motdText = "lmk if u fw the redesign 👀";
 const aboutText =
   "hii im pawzy/eli and i love cats!! they are the most divine species to ever grace us with their presence!! i'm very interested in space and everything sci-fi really, i have a TERRIBLE memory, and TERRIBLE social anxiety, i usually hate calling but there are some exceptions, and i will probably forget ur birthday i literally can't remember anyone's birthday it's so annoying, i love to sleep a lot and i'm lwk a gooner but i will heal..";
 const quoteEl = document.querySelector("#quote");
