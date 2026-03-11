@@ -1,12 +1,12 @@
-const quotes = [
+﻿const quotes = [
   "sneezes on u",
   "love urself",
   "u so dope boi",
   "mreow",
-  "gimme suggestions 👀"
+  "gimme suggestions ðŸ‘€"
 ];
 
-const motdText = "we back";
+const motdText = "lmk if u fw the redesign ðŸ‘€";
 const aboutText =
   "hii im pawzy/eli and i love cats!! they are the most divine species to ever grace us with their presence!! i'm very interested in space and everything sci-fi really, i have a TERRIBLE memory, and TERRIBLE social anxiety, i usually hate calling but there are some exceptions, and i will probably forget ur birthday i literally can't remember anyone's birthday it's so annoying, i love to sleep a lot and i'm lwk a gooner but i will heal..";
 const quoteEl = document.querySelector("#quote");
@@ -21,6 +21,9 @@ const commentName = document.querySelector("#comment-name");
 const commentMessage = document.querySelector("#comment-message");
 const commentStatus = document.querySelector("#comment-status");
 const commentsList = document.querySelector("#comments-list");
+const commentsPrev = document.querySelector("#comments-prev");
+const commentsNext = document.querySelector("#comments-next");
+const commentsPageLabel = document.querySelector("#comments-page");
 const adminKeyInput = document.querySelector("#admin-key");
 const adminUnlock = document.querySelector("#admin-unlock");
 let fadeTimer = null;
@@ -28,9 +31,13 @@ let fadeTimer = null;
 const supabaseUrl = "https://rrdixnojnabbjlzmkuzs.supabase.co";
 const supabaseAnonKey = "sb_publishable_oQjmIEphVy1xiYspwrWdgg_EraC0t6D";
 const commentsTable = "comments";
+const commentsPageSize = 8;
 const cooldownMs = 3 * 60 * 1000;
 const adminKeyStorage = "pawzy_admin_key";
 const commentCooldownStorage = "pawzy_comment_cooldown_at";
+let commentsPage = 1;
+let commentsTotal = 0;
+let commentsTotalPages = 1;
 
 function fadeInAudio(targetVolume, durationMs) {
   if (!bgAudio) {
@@ -120,6 +127,30 @@ function formatDate(value) {
   return date.toLocaleString();
 }
 
+function parseTotalCount(rangeHeader) {
+  if (!rangeHeader) {
+    return 0;
+  }
+
+  const parts = rangeHeader.split("/");
+  if (parts.length !== 2) {
+    return 0;
+  }
+
+  const total = Number(parts[1]);
+  return Number.isNaN(total) ? 0 : total;
+}
+
+function updatePagination() {
+  if (!commentsPageLabel || !commentsPrev || !commentsNext) {
+    return;
+  }
+
+  commentsPageLabel.textContent = `page ${commentsPage} of ${commentsTotalPages}`;
+  commentsPrev.disabled = commentsPage <= 1;
+  commentsNext.disabled = commentsPage >= commentsTotalPages;
+}
+
 function renderComment(comment) {
   const card = document.createElement("div");
   card.className = "comment";
@@ -162,22 +193,25 @@ function renderComment(comment) {
   return card;
 }
 
-async function fetchComments() {
+async function fetchComments(page = 1) {
   if (!commentsList) {
     return;
   }
 
   commentsList.innerHTML = "";
   setCommentStatus("loading comments...", false);
+  commentsPage = page;
 
   try {
+    const offset = (page - 1) * commentsPageSize;
     const response = await fetch(
       `${supabaseUrl}/rest/v1/${commentsTable}?select=*` +
-        `&order=created_at.desc&limit=25`,
+        `&order=created_at.desc&limit=${commentsPageSize}&offset=${offset}`,
       {
         headers: {
           apikey: supabaseAnonKey,
-          Authorization: `Bearer ${supabaseAnonKey}`
+          Authorization: `Bearer ${supabaseAnonKey}`,
+          Prefer: "count=exact"
         }
       }
     );
@@ -191,7 +225,20 @@ async function fetchComments() {
       commentsList.appendChild(renderComment(row));
     });
 
-    setCommentStatus("", false);
+    const total = parseTotalCount(response.headers.get("content-range"));
+    if (total > 0) {
+      commentsTotal = total;
+      commentsTotalPages = Math.max(1, Math.ceil(commentsTotal / commentsPageSize));
+    } else if (rows.length === 0) {
+      commentsTotal = 0;
+      commentsTotalPages = 1;
+    } else {
+      commentsTotal = Math.max(commentsTotal, offset + rows.length);
+      commentsTotalPages = Math.max(1, commentsPage + (rows.length === commentsPageSize ? 1 : 0));
+    }
+
+    updatePagination();
+    setCommentStatus(rows.length ? "" : "no comments yet.", false);
   } catch (error) {
     setCommentStatus("could not load comments yet.", true);
   }
@@ -246,12 +293,25 @@ async function submitComment(event) {
     commentName.value = "";
     commentMessage.value = "";
 
-    if (saved && saved.length) {
-      commentsList.prepend(renderComment(saved[0]));
+    if (saved && saved.length && commentsList) {
+      commentsTotal += 1;
+      commentsTotalPages = Math.max(1, Math.ceil(commentsTotal / commentsPageSize));
+      updatePagination();
+
+      if (commentsPage === 1) {
+        commentsList.prepend(renderComment(saved[0]));
+        if (commentsList.children.length > commentsPageSize) {
+          commentsList.removeChild(commentsList.lastElementChild);
+        }
+        setCommentStatus("posted!", false);
+      } else {
+        setCommentStatus("posted! (new comment is on page 1)", false);
+      }
+    } else {
+      setCommentStatus("posted!", false);
     }
 
     window.localStorage.setItem(commentCooldownStorage, String(Date.now()));
-    setCommentStatus("posted!", false);
   } catch (error) {
     setCommentStatus("could not post comment. cooldown or setup issue.", true);
   }
@@ -285,11 +345,15 @@ async function deleteComment(id) {
       throw new Error(details || "delete failed");
     }
 
-    const card = commentsList.querySelector(`[data-id="${id}"]`);
-    if (card) {
-      card.remove();
+    if (commentsTotal > 0) {
+      commentsTotal -= 1;
+    }
+    commentsTotalPages = Math.max(1, Math.ceil(commentsTotal / commentsPageSize));
+    if (commentsPage > commentsTotalPages) {
+      commentsPage = commentsTotalPages;
     }
 
+    await fetchComments(commentsPage);
     setCommentStatus("deleted.", false);
   } catch (error) {
     setCommentStatus("could not delete comment. check admin key.", true);
@@ -307,7 +371,7 @@ if (musicButton && bgAudio) {
 
 if (commentForm) {
   commentForm.addEventListener("submit", submitComment);
-  fetchComments();
+  fetchComments(1);
 }
 
 if (commentsList) {
@@ -318,6 +382,22 @@ if (commentsList) {
     }
 
     deleteComment(button.dataset.id);
+  });
+}
+
+if (commentsPrev) {
+  commentsPrev.addEventListener("click", () => {
+    if (commentsPage > 1) {
+      fetchComments(commentsPage - 1);
+    }
+  });
+}
+
+if (commentsNext) {
+  commentsNext.addEventListener("click", () => {
+    if (commentsPage < commentsTotalPages) {
+      fetchComments(commentsPage + 1);
+    }
   });
 }
 
@@ -332,6 +412,6 @@ if (adminUnlock && adminKeyInput) {
     window.localStorage.setItem(adminKeyStorage, value);
     adminKeyInput.value = "";
     setCommentStatus("admin unlocked.", false);
-    fetchComments();
+    fetchComments(1);
   });
 }
