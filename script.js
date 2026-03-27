@@ -3,7 +3,7 @@ const quotes = [
   "love urself",
   "u so dope boi",
   "mreow",
-  "gimme suggestions ðŸ‘€"
+  "gimme suggestions"
 ];
 
 const motdText = "comment section pages yay";
