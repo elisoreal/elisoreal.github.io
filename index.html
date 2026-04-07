@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -7,131 +7,76 @@
   <link rel="icon" href="favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <div class="loader" aria-hidden="true">
-    <img class="loader__star" src="loadingphoto.png" alt="Shining star" />
-    <p class="loader__quote" id="quote"></p>
-    <p class="loader__text">im so dope boi</p>
-    <button class="loader__enter" id="enter-site" type="button">enter</button>
+<body class="site-locked">
+  <div class="starfield" aria-hidden="true">
+    <div class="starfield__layer starfield__layer--far" data-depth="0.18"></div>
+    <div class="starfield__layer starfield__layer--mid" data-depth="0.34"></div>
+    <div class="starfield__layer starfield__layer--near" data-depth="0.52"></div>
+  </div>
+
+  <div class="session-chip" id="delete-badge" hidden>delete mode</div>
+
+  <div class="entry-screen" id="entry-screen" aria-hidden="false">
+    <button class="entry-screen__button" id="enter-site" type="button">enter</button>
   </div>
 
   <main class="page">
-    <header class="hero">
-      <div class="hero__text">
-        <div class="discord-card">
-          <img class="discord-card__avatar" src="profilepicture.jpg" alt="Discord profile avatar" />
-          <div class="discord-card__details">
-            <p class="discord-card__name">pawzy</p>
-            <p class="discord-card__handle">.eli.</p>
-            <p class="discord-card__status">
-              <span class="discord-card__dot is-idle"></span>
-              <span>sneezes on u</span>
-            </p>
-            <div class="discord-card__badges" aria-label="discord badges">
-              <img src="nitroemerald.png" alt="Nitro badge" />
-              <img src="hypesquadbrilliance.png" alt="HypeSquad Brilliance badge" />
-              <img src="originallyknownbadge.png" alt="Originally Known badge" />
-              <img src="questbadge.png" alt="Quest badge" />
-              <img src="apprenticebadge.png" alt="Active Developer badge" />
-            </div>
+    <section class="intro">
+      <article class="panel intro__copy">
+        <h1>pawzy</h1>
+        <p class="intro__lede" id="about"></p>
+      </article>
+
+      <article class="panel profile-card">
+        <div class="profile-card__header">
+          <img class="profile-card__avatar" src="profilepicture.webp" alt="Pawzy profile picture" />
+          <div class="profile-card__identity">
+            <p class="profile-card__name">pawzy</p>
+            <p class="profile-card__handle">.eli.</p>
           </div>
         </div>
-        <p class="motd"><span>motd:</span> <span id="motd"></span></p>
-        <h1>about pawzy</h1>
-        <p class="about" id="about"></p>
-        <div class="music">
-          <button class="music__button" id="music-toggle" type="button">unmute</button>
-          <audio id="bg-audio" src="I'm So Dope Boy.mp4" loop></audio>
-        </div>
-      </div>
-      <div class="hero__art">
-        <div class="planet"></div>
-        <div class="cats">
-          <img src="cleo1.jpg" alt="Cleo the cat" />
-          <img src="spyder1.jpg" alt="Spyder lounging" />
-          <img src="spyder2.jpg" alt="Spyder close up" />
-        </div>
-      </div>
-    </header>
 
-    <section class="grid">
-      <article class="card">
-        <h2>find me</h2>
-        <div class="links">
-          <a class="link-button" href="https://discordapp.com/users/585199655709835284" target="_blank" rel="noopener noreferrer">discord</a>
-          <a class="link-button" href="https://www.roblox.com/users/5817084552/profile" target="_blank" rel="noopener noreferrer">roblox</a>
-          <a class="link-button" href="https://steamcommunity.com/profiles/76561199201989415/" target="_blank" rel="noopener noreferrer">steam</a>
+        <div class="profile-card__badges" aria-label="discord badges">
+          <img src="nitroemerald.png" alt="Nitro badge" />
+          <img src="hypesquadbrilliance.png" alt="HypeSquad Brilliance badge" />
+          <img src="originallyknownbadge.png" alt="Originally Known badge" />
+          <img src="questbadge.png" alt="Quest badge" />
+          <img src="apprenticebadge.png" alt="Active Developer badge" />
         </div>
-      </article>
-
-      <article class="card">
-        <h2>interests</h2>
-        <ul>
-          <li>cats</li>
-          <li>sleeping</li>
-          <li>horror MOVIES not games ok too scary</li>
-          <li>music but dont ask me abt music because then i get shy and i start to freak out because i don't know if you'll agree with my music taste and the thought of you not liking it overwhelms me and i start to sweat and get anxious so please don't ask me about my music or i could possibly die.</li>
-        </ul>
-      </article>
-
-      <article class="card">
-        <h2>dislikes</h2>
-        <ul>
-          <li>outside</li>
-          <li>social stuff</li>
-          <li>THESE HATERS MANE</li>
-          <li>insufferably idiotic people ❌❌❌</li>
-        </ul>
       </article>
     </section>
 
-    <section class="favorites">
-      <div class="favorites__header">
-        <h2>favorite watches</h2>
-      </div>
-      <div class="favorites__grid">
-        <article class="favorites__card">
-          <div class="favorites__image">
-            <img src="interstellar.png" alt="Interstellar movie poster" />
-          </div>
-          <h3>interstellar</h3>
-          <p>favorite movie</p>
-        </article>
-        <article class="favorites__card">
-          <div class="favorites__image">
-            <img src="shameless.png" alt="Shameless TV show art" />
-          </div>
-          <h3>shameless</h3>
-          <p>favorite show</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="comments">
+    <section class="comments panel">
       <div class="comments__header">
-        <h2>leave a comment</h2>
-        <p>be respectful please!</p>
+        <div>
+          <p class="eyebrow">comments</p>
+          <h2>leave a comment</h2>
+        </div>
+        <p class="comments__hint">don't be too weird.</p>
       </div>
-      <div class="comments__admin" id="comments-admin">
-        <input type="password" id="admin-key" placeholder="admin key" />
-        <button type="button" id="admin-unlock">unlock</button>
-      </div>
+
       <form class="comments__form" id="comment-form">
         <label class="comments__field">
           <span>nickname</span>
           <input type="text" id="comment-name" maxlength="32" placeholder="your name" required />
         </label>
+
         <label class="comments__field">
           <span>message</span>
-          <textarea id="comment-message" maxlength="280" rows="4" placeholder="say something nice..." required></textarea>
+          <textarea id="comment-message" maxlength="280" rows="4" placeholder="say something..." required></textarea>
         </label>
-        <button class="comments__submit" type="submit">post comment</button>
-        <p class="comments__status" id="comment-status" aria-live="polite"></p>
+
+        <div class="comments__actions">
+          <button class="comments__submit" type="submit">post comment</button>
+          <p class="comments__status" id="comment-status" aria-live="polite"></p>
+        </div>
       </form>
+
       <div class="comments__list" id="comments-list"></div>
+
       <div class="comments__pagination" id="comments-pagination">
         <button class="page-button" type="button" id="comments-prev">prev</button>
         <span class="comments__page" id="comments-page">page 1 of 1</span>
@@ -139,10 +84,11 @@
       </div>
     </section>
 
-    <footer class="footer">
-      im so sleeepyyy &copy; 2026 pawzy
-    </footer>
+    <footer class="footer">pawzy &copy; 2026</footer>
   </main>
+
+  <button class="music-toggle" id="music-toggle" type="button">mute</button>
+  <audio id="bg-audio" src="A Behemoth, forever raging.mp4" preload="metadata" loop></audio>
 
   <script src="script.js"></script>
 </body>
