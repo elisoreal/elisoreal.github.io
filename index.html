@@ -7,7 +7,7 @@
   <link rel="icon" href="favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="site-locked">
@@ -20,19 +20,25 @@
   <div class="session-chip" id="delete-badge" hidden>delete mode</div>
 
   <div class="entry-screen" id="entry-screen" aria-hidden="false">
-    <button class="entry-screen__button" id="enter-site" type="button">enter</button>
+    <div class="entry-screen__content">
+      <img class="entry-screen__gif" src="nyangif.gif" alt="" aria-hidden="true" />
+      <button class="entry-screen__button" id="enter-site" type="button">enter</button>
+    </div>
   </div>
 
   <main class="page">
     <section class="intro">
       <article class="panel intro__copy">
+        <p class="eyebrow">about</p>
         <h1>pawzy</h1>
         <p class="intro__lede" id="about"></p>
       </article>
 
       <article class="panel profile-card">
         <div class="profile-card__header">
-          <img class="profile-card__avatar" src="profilepicture.webp" alt="Pawzy profile picture" />
+          <div class="profile-card__avatar-frame">
+            <img class="profile-card__avatar" src="profile picture.webp" alt="Pawzy profile picture" />
+          </div>
           <div class="profile-card__identity">
             <p class="profile-card__name">pawzy</p>
             <p class="profile-card__handle">.eli.</p>
@@ -55,7 +61,6 @@
           <p class="eyebrow">comments</p>
           <h2>leave a comment</h2>
         </div>
-        <p class="comments__hint">don't be too weird.</p>
       </div>
 
       <form class="comments__form" id="comment-form">
@@ -87,8 +92,8 @@
     <footer class="footer">pawzy &copy; 2026</footer>
   </main>
 
-  <button class="music-toggle" id="music-toggle" type="button">mute</button>
-  <audio id="bg-audio" src="A Behemoth, forever raging.mp4" preload="metadata" loop></audio>
+  <button class="music-toggle" id="music-toggle" type="button">play</button>
+  <audio id="bg-audio" src="Nyan Cat.mp3" preload="metadata" loop></audio>
 
   <script src="script.js"></script>
 </body>

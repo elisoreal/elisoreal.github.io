@@ -1,5 +1,5 @@
 const aboutText =
-  "sleepyhead w really bad memory, i like space and cats. not adding a dark mode.";
+  "i have really bad memory, i like catss and i likee robloxx andd space andd sleeping";
 
 const supabaseUrl = "https://rrdixnojnabbjlzmkuzs.supabase.co";
 const supabaseAnonKey = "sb_publishable_oQjmIEphVy1xiYspwrWdgg_EraC0t6D";
@@ -85,7 +85,7 @@ function playAudio() {
   }
 
   bgAudio.play().catch(() => {});
-  fadeInAudio(0.32, 2800);
+  fadeInAudio(0.26, 2200);
   musicButton.textContent = "mute";
 }
 
@@ -96,7 +96,7 @@ function pauseAudio() {
 
   stopFadeTimer();
   bgAudio.pause();
-  musicButton.textContent = "unmute";
+  musicButton.textContent = "play";
 }
 
 function toggleAudio() {
@@ -374,7 +374,8 @@ async function deleteComment(id) {
 
     const deleted = await response.json();
     if (!deleted) {
-      throw new Error("delete refused");
+      setCommentStatus("delete key was rejected by the server.", true);
+      return;
     }
 
     commentsTotal = Math.max(0, commentsTotal - 1);
