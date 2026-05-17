@@ -3,19 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>about pawzy</title>
+  <title>pawdazed.</title>
   <link rel="icon" href="favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="site-locked">
-  <div class="starfield" aria-hidden="true">
-    <div class="starfield__layer starfield__layer--far" data-depth="0.18"></div>
-    <div class="starfield__layer starfield__layer--mid" data-depth="0.34"></div>
-    <div class="starfield__layer starfield__layer--near" data-depth="0.52"></div>
-  </div>
+  <canvas class="star-canvas" id="star-canvas" aria-hidden="true"></canvas>
 
   <div class="session-chip" id="delete-badge" hidden>delete mode</div>
 
@@ -24,18 +20,18 @@
   </div>
 
   <main class="page">
-    <section class="intro">
-      <article class="panel intro__copy">
-        <h1>pawzy</h1>
-        <p class="intro__lede" id="about"></p>
+    <section class="hero">
+      <article class="panel hero__copy">
+        <h1>pawdazed</h1>
+        <p class="hero__lede" id="about"></p>
       </article>
 
       <article class="panel profile-card">
         <div class="profile-card__header">
-          <img class="profile-card__avatar" src="profilepicture.webp" alt="Pawzy profile picture" />
+          <img class="profile-card__avatar" src="profilepicture.png" alt="pawdazed profile picture" />
           <div class="profile-card__identity">
-            <p class="profile-card__name">pawzy</p>
-            <p class="profile-card__handle">.eli.</p>
+            <p class="profile-card__name">pawdazed</p>
+            <p class="profile-card__handle">pawdazed</p>
           </div>
         </div>
 
@@ -44,6 +40,7 @@
           <img src="hypesquadbrilliance.png" alt="HypeSquad Brilliance badge" />
           <img src="originallyknownbadge.png" alt="Originally Known badge" />
           <img src="questbadge.png" alt="Quest badge" />
+          <img src="meadowbadge.png" alt="Meadow badge" />
           <img src="apprenticebadge.png" alt="Active Developer badge" />
         </div>
       </article>
@@ -55,7 +52,7 @@
           <p class="eyebrow">comments</p>
           <h2>leave a comment</h2>
         </div>
-        <p class="comments__hint">don't be too weird.</p>
+        <p class="section-heading__hint">don't be too weird.</p>
       </div>
 
       <form class="comments__form" id="comment-form">
@@ -84,9 +81,10 @@
       </div>
     </section>
 
-    <footer class="footer">pawzy &copy; 2026</footer>
+    <footer class="footer">pawdazed &copy; 2026</footer>
   </main>
 
+  <div class="view-count" id="view-count" aria-live="polite">👁 0</div>
   <button class="music-toggle" id="music-toggle" type="button">mute</button>
   <audio id="bg-audio" src="A Behemoth, forever raging.mp4" preload="metadata" loop></audio>
 

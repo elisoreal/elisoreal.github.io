@@ -1,5 +1,5 @@
 const aboutText =
-  "sleepyhead w really bad memory, i like space and cats. not adding a dark mode.";
+  "sleepyhead, i ♥ space, cats and quality ^_^";
 
 const supabaseUrl = "https://rrdixnojnabbjlzmkuzs.supabase.co";
 const supabaseAnonKey = "sb_publishable_oQjmIEphVy1xiYspwrWdgg_EraC0t6D";
@@ -9,6 +9,9 @@ const cooldownMs = 3 * 60 * 1000;
 const commentCooldownStorage = "pawzy_comment_cooldown_at";
 const deleteUnlockDigest = "9768324e164a916257780c8551b9d508ed272aacbe4a3e4fc6965e66312ceb38";
 const deleteUnlockLength = 10;
+const starInteractionRadius = 190;
+const viewCountNamespace = "eli-is-a-dev-stars";
+const viewCountKey = "lifetime-visits";
 
 const aboutEl = document.querySelector("#about");
 const entryScreen = document.querySelector("#entry-screen");
@@ -24,7 +27,9 @@ const commentsList = document.querySelector("#comments-list");
 const commentsPrev = document.querySelector("#comments-prev");
 const commentsNext = document.querySelector("#comments-next");
 const commentsPageLabel = document.querySelector("#comments-page");
-const starLayers = Array.from(document.querySelectorAll(".starfield__layer"));
+const starCanvas = document.querySelector("#star-canvas");
+const viewCountEl = document.querySelector("#view-count");
+const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 let fadeTimer = null;
 let commentsPage = 1;
@@ -34,11 +39,15 @@ let currentComments = [];
 let deleteModeEnabled = false;
 let deleteAccessKey = "";
 let keyBuffer = "";
-let parallaxFrame = 0;
+let starContext = null;
+let starAnimationFrame = 0;
+let stars = [];
 
 const pointerState = {
   x: window.innerWidth / 2,
-  y: window.innerHeight / 2
+  y: window.innerHeight / 2,
+  active: false,
+  burst: 0
 };
 
 function setStaticCopy() {
@@ -132,7 +141,7 @@ function setCommentStatus(message, isError = false) {
   }
 
   commentStatus.textContent = message;
-  commentStatus.style.color = isError ? "#8a1313" : "";
+  commentStatus.style.color = isError ? "rgba(255, 255, 255, 0.82)" : "";
 }
 
 function formatDate(value) {
@@ -449,63 +458,199 @@ function handleUnlockKeys(event) {
   void tryEnableDeleteMode(keyBuffer);
 }
 
-function updateParallax() {
-  parallaxFrame = 0;
-
-  if (!starLayers.length) {
-    return;
-  }
-
-  const offsetX = (pointerState.x - window.innerWidth / 2) / window.innerWidth;
-  const offsetY = (pointerState.y - window.innerHeight / 2) / window.innerHeight;
-  const scrollShift = window.scrollY * 0.018;
-
-  starLayers.forEach((layer) => {
-    const depth = Number(layer.dataset.depth || 0);
-    const x = offsetX * -42 * depth;
-    const y = offsetY * -32 * depth - scrollShift * depth;
-    layer.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
-  });
+function createStar(width, height) {
+  return {
+    x: Math.random() * width,
+    y: Math.random() * height,
+    size: 0.25 + Math.random() * 0.9,
+    alpha: 0.45 + Math.random() * 0.5,
+    speed: 0.35 + Math.random() * 1.2,
+    phase: Math.random() * Math.PI * 2,
+    spike: Math.random() > 0.94
+  };
 }
 
-function requestParallaxFrame() {
-  if (!starLayers.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+function drawStarfield(timestamp) {
+  if (!starContext || !starCanvas) {
     return;
   }
 
-  if (parallaxFrame) {
-    return;
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const time = timestamp * 0.00055;
+
+  starContext.clearRect(0, 0, width, height);
+
+  for (const star of stars) {
+    const twinkle = (Math.sin(time * star.speed * 6 + star.phase) + 1) * 0.5;
+    const x = star.x;
+    const y = star.y;
+    let boost = 0;
+
+    if (pointerState.active) {
+      const dx = pointerState.x - x;
+      const dy = pointerState.y - y;
+      const distance = Math.hypot(dx, dy);
+
+      if (distance < starInteractionRadius) {
+        const force = 1 - distance / starInteractionRadius;
+        boost = force * 0.48 + pointerState.burst * Math.max(0, 1 - distance / (starInteractionRadius * 1.5));
+      }
+    }
+
+    const radius = star.size + twinkle * 0.42 + boost * 0.38;
+    const alpha = Math.min(1, star.alpha * (0.7 + twinkle * 0.55) + boost * 0.32);
+
+    starContext.beginPath();
+    starContext.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+    starContext.arc(x, y, radius, 0, Math.PI * 2);
+    starContext.fill();
+
+    if (radius > 0.9) {
+      starContext.beginPath();
+      starContext.fillStyle = `rgba(255, 255, 255, ${alpha * 0.11})`;
+      starContext.arc(x, y, radius * 3.2, 0, Math.PI * 2);
+      starContext.fill();
+    }
+
+    if (star.spike && alpha > 0.72) {
+      starContext.strokeStyle = `rgba(255, 255, 255, ${alpha * 0.2})`;
+      starContext.lineWidth = 1;
+      starContext.beginPath();
+      starContext.moveTo(x - radius * 1.8, y);
+      starContext.lineTo(x + radius * 1.8, y);
+      starContext.moveTo(x, y - radius * 1.8);
+      starContext.lineTo(x, y + radius * 1.8);
+      starContext.stroke();
+    }
   }
 
-  parallaxFrame = window.requestAnimationFrame(updateParallax);
+  pointerState.burst = Math.max(0, pointerState.burst - 0.03);
 }
 
-function initParallax() {
-  if (!starLayers.length) {
+function animateStarfield(timestamp) {
+  drawStarfield(timestamp);
+  starAnimationFrame = window.requestAnimationFrame(animateStarfield);
+}
+
+function stopStarfield() {
+  if (!starAnimationFrame) {
     return;
   }
 
-  requestParallaxFrame();
+  window.cancelAnimationFrame(starAnimationFrame);
+  starAnimationFrame = 0;
+}
+
+function buildStars() {
+  if (!starCanvas || !starContext) {
+    return;
+  }
+
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  const starCount = Math.max(160, Math.min(420, Math.round((width * height) / 6200)));
+
+  starCanvas.width = Math.floor(width * ratio);
+  starCanvas.height = Math.floor(height * ratio);
+  starCanvas.style.width = `${width}px`;
+  starCanvas.style.height = `${height}px`;
+  starContext.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+  stars = Array.from({ length: starCount }, () => createStar(width, height));
+}
+
+function startStarfield() {
+  if (!starCanvas) {
+    return;
+  }
+
+  if (!starContext) {
+    starContext = starCanvas.getContext("2d");
+  }
+
+  if (!starContext) {
+    return;
+  }
+
+  buildStars();
+  stopStarfield();
+
+  if (reducedMotionQuery.matches) {
+    drawStarfield(0);
+    return;
+  }
+
+  starAnimationFrame = window.requestAnimationFrame(animateStarfield);
+}
+
+function handleReducedMotionChange() {
+  startStarfield();
+}
+
+function initStarfield() {
+  if (!starCanvas) {
+    return;
+  }
+
+  startStarfield();
+
+  window.addEventListener("resize", startStarfield, { passive: true });
+  if (typeof reducedMotionQuery.addEventListener === "function") {
+    reducedMotionQuery.addEventListener("change", handleReducedMotionChange);
+  } else if (typeof reducedMotionQuery.addListener === "function") {
+    reducedMotionQuery.addListener(handleReducedMotionChange);
+  }
 
   window.addEventListener(
     "pointermove",
     (event) => {
       pointerState.x = event.clientX;
       pointerState.y = event.clientY;
-      requestParallaxFrame();
+      pointerState.active = true;
     },
     { passive: true }
   );
 
   window.addEventListener(
-    "scroll",
-    () => {
-      requestParallaxFrame();
+    "pointerdown",
+    (event) => {
+      pointerState.x = event.clientX;
+      pointerState.y = event.clientY;
+      pointerState.active = true;
+      pointerState.burst = 0.7;
     },
     { passive: true }
   );
 
-  window.addEventListener("resize", requestParallaxFrame);
+  window.addEventListener("pointerout", (event) => {
+    if (event.relatedTarget === null) {
+      pointerState.active = false;
+    }
+  });
+}
+
+async function fetchViewCount() {
+  if (!viewCountEl) {
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.countapi.xyz/hit/${encodeURIComponent(viewCountNamespace)}/${encodeURIComponent(viewCountKey)}`
+    );
+
+    if (!response.ok) {
+      throw new Error("failed to fetch count");
+    }
+
+    const data = await response.json();
+    const value = typeof data.value === "number" ? data.value : 0;
+    viewCountEl.textContent = `👁 ${value.toLocaleString()}`;
+  } catch (error) {
+    viewCountEl.textContent = "👁 --";
+  }
 }
 
 function bindEvents() {
@@ -549,7 +694,8 @@ function bindEvents() {
 
 setStaticCopy();
 initEntryScreen();
-initParallax();
+initStarfield();
 bindEvents();
 updatePagination();
 fetchComments(1);
+fetchViewCount();
