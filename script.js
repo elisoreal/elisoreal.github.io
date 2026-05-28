@@ -1,5 +1,5 @@
 const aboutText =
-  "sleepyhead, i ♥ space, cats and quality ^_^          i use arch btw";
+  "sleepyhead, i ♥ space, cats and quality ^_^ (i use arch btw)";
 
 const supabaseUrl = "https://rrdixnojnabbjlzmkuzs.supabase.co";
 const supabaseAnonKey = "sb_publishable_oQjmIEphVy1xiYspwrWdgg_EraC0t6D";
