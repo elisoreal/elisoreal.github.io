@@ -27,7 +27,11 @@ body {
   color: var(--text);
   font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 15px;
-  background: var(--black);
+  background:
+    radial-gradient(ellipse at 76% 12%, rgba(var(--lavender-rgb), 0.23), transparent 38%),
+    radial-gradient(ellipse at 18% 86%, rgba(150, 112, 232, 0.19), transparent 42%),
+    radial-gradient(ellipse at 50% 52%, rgba(89, 57, 148, 0.12), transparent 58%),
+    linear-gradient(145deg, #08050f 0%, #020104 52%, #0a0612 100%);
 }
 
 body.has-custom-cursor,
@@ -61,7 +65,7 @@ button {
   z-index: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.52;
+  opacity: 0.68;
 }
 
 .scanlines {
@@ -99,9 +103,9 @@ body.has-custom-cursor .custom-cursor.is-visible {
   place-items: start;
   padding: 64px 28px 28px;
   background:
-    radial-gradient(circle at 72% 18%, rgba(var(--lavender-rgb), 0.16), transparent 28%),
-    radial-gradient(circle at 22% 82%, rgba(114, 167, 255, 0.11), transparent 32%),
-    rgba(0, 0, 0, 0.46);
+    radial-gradient(ellipse at 72% 18%, rgba(var(--lavender-rgb), 0.25), transparent 35%),
+    radial-gradient(ellipse at 20% 82%, rgba(156, 113, 238, 0.19), transparent 40%),
+    linear-gradient(135deg, rgba(26, 13, 43, 0.3), rgba(0, 0, 0, 0.34));
   transition: opacity 0.22s ease, visibility 0.22s ease;
 }
 
@@ -121,7 +125,7 @@ body.has-custom-cursor .custom-cursor.is-visible {
   padding: 0 14px;
   border-bottom: 1px solid rgba(var(--lavender-rgb), 0.18);
   color: rgba(240, 245, 242, 0.76);
-  background: rgba(5, 3, 10, 0.72);
+  background: rgba(15, 8, 25, 0.78);
   backdrop-filter: blur(10px);
   font-size: 0.76rem;
 }
@@ -212,7 +216,10 @@ body.has-custom-cursor .custom-cursor.is-visible {
   z-index: 6;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.77);
+  background:
+    radial-gradient(ellipse at 78% 18%, rgba(var(--lavender-rgb), 0.07), transparent 42%),
+    radial-gradient(ellipse at 16% 88%, rgba(137, 91, 218, 0.06), transparent 38%),
+    rgba(0, 0, 0, 0.7);
   transition: opacity 0.22s ease;
 }
 
@@ -256,7 +263,7 @@ body.desktop-active .terminal-shell {
   display: grid;
   place-items: center;
   padding: 52px 22px 22px;
-  background: rgba(0, 0, 0, 0.36);
+  background: rgba(14, 7, 24, 0.42);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -274,7 +281,9 @@ body.desktop-active .terminal-shell {
   max-height: min(680px, calc(100vh - 74px));
   border: 1px solid rgba(var(--lavender-rgb), 0.36);
   border-radius: 4px;
-  background: rgba(2, 1, 5, 0.94);
+  background:
+    linear-gradient(145deg, rgba(var(--lavender-rgb), 0.045), transparent 38%),
+    rgba(5, 2, 9, 0.94);
   box-shadow: 0 24px 90px rgba(0, 0, 0, 0.68), 0 0 42px rgba(var(--lavender-rgb), 0.08);
   overflow: hidden;
 }

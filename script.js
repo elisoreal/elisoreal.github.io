@@ -705,19 +705,19 @@ function drawStarfield(timestamp) {
     const alpha = Math.min(1, star.alpha * (0.72 + twinkle * 0.58) + boost * 0.32);
 
     starContext.beginPath();
-    starContext.fillStyle = `rgba(236, 226, 255, ${alpha})`;
+    starContext.fillStyle = `rgba(229, 211, 255, ${alpha})`;
     starContext.arc(x, y, radius, 0, Math.PI * 2);
     starContext.fill();
 
     if (radius > 1) {
       starContext.beginPath();
-      starContext.fillStyle = `rgba(197, 167, 255, ${alpha * 0.16})`;
+      starContext.fillStyle = `rgba(184, 140, 255, ${alpha * 0.23})`;
       starContext.arc(x, y, radius * 4.4, 0, Math.PI * 2);
       starContext.fill();
     }
 
     if (star.spike && alpha > 0.72) {
-      starContext.strokeStyle = `rgba(219, 199, 255, ${alpha * 0.3})`;
+      starContext.strokeStyle = `rgba(210, 180, 255, ${alpha * 0.42})`;
       starContext.lineWidth = 1;
       starContext.beginPath();
       starContext.moveTo(x - radius * 2.3, y);
