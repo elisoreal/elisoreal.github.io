@@ -2,7 +2,7 @@ const supabaseUrl = "https://rrdixnojnabbjlzmkuzs.supabase.co";
 const supabaseAnonKey = "sb_publishable_oQjmIEphVy1xiYspwrWdgg_EraC0t6D";
 const commentsTable = "comments";
 const commentsPageSize = 6;
-const cooldownMs = 3 * 60 * 1000;
+const cooldownMs = 30 * 1000;
 const commentCooldownStorage = "lavender_terminal_comment_cooldown_at";
 const starInteractionRadius = 190;
 const viewCountKey = "lavender-stars-lifetime-visits";
@@ -33,6 +33,7 @@ const commentsPrev = document.querySelector("#comments-prev");
 const commentsNext = document.querySelector("#comments-next");
 const commentsPageLabel = document.querySelector("#comments-page");
 const starCanvas = document.querySelector("#star-canvas");
+const customCursor = document.querySelector("#custom-cursor");
 const viewCountEl = document.querySelector("#view-count");
 const loginTime = document.querySelector("#login-time");
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -69,12 +70,21 @@ let typingEnabled = false;
 let measureSpan = null;
 let audioUnlocked = false;
 let musicEnabled = window.localStorage.getItem(musicPreferenceStorage) !== "false";
+let cursorAnimationFrame = 0;
 
 const pointerState = {
   x: window.innerWidth / 2,
   y: window.innerHeight / 2,
   active: false,
   burst: 0
+};
+
+const cursorState = {
+  targetX: window.innerWidth / 2,
+  targetY: window.innerHeight / 2,
+  x: window.innerWidth / 2,
+  y: window.innerHeight / 2,
+  visible: false
 };
 
 function stopFadeTimer() {
@@ -820,6 +830,53 @@ function initStarfield() {
   });
 }
 
+function updateCustomCursor() {
+  if (!customCursor) {
+    return;
+  }
+
+  cursorState.x += (cursorState.targetX - cursorState.x) * 0.18;
+  cursorState.y += (cursorState.targetY - cursorState.y) * 0.18;
+  customCursor.style.transform = `translate3d(${cursorState.x - 13}px, ${cursorState.y - 13}px, 0)`;
+  cursorAnimationFrame = window.requestAnimationFrame(updateCustomCursor);
+}
+
+function initCustomCursor() {
+  if (!customCursor || reducedMotionQuery.matches || window.matchMedia("(pointer: coarse)").matches) {
+    return;
+  }
+
+  document.body.classList.add("has-custom-cursor");
+  cursorAnimationFrame = window.requestAnimationFrame(updateCustomCursor);
+
+  window.addEventListener(
+    "pointermove",
+    (event) => {
+      cursorState.targetX = event.clientX;
+      cursorState.targetY = event.clientY;
+      cursorState.visible = true;
+      customCursor.classList.add("is-visible");
+    },
+    { passive: true }
+  );
+
+  window.addEventListener(
+    "pointerdown",
+    (event) => {
+      cursorState.targetX = event.clientX;
+      cursorState.targetY = event.clientY;
+    },
+    { passive: true }
+  );
+
+  window.addEventListener("pointerout", (event) => {
+    if (event.relatedTarget === null) {
+      cursorState.visible = false;
+      customCursor.classList.remove("is-visible");
+    }
+  });
+}
+
 async function fetchViewCount() {
   if (!viewCountEl) {
     return;
@@ -978,6 +1035,7 @@ function bootTerminal() {
 }
 
 initStarfield();
+initCustomCursor();
 bindEvents();
 bootTerminal();
 fetchViewCount();

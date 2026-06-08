@@ -30,6 +30,11 @@ body {
   background: var(--black);
 }
 
+body.has-custom-cursor,
+body.has-custom-cursor * {
+  cursor: none !important;
+}
+
 button,
 input,
 textarea {
@@ -63,6 +68,27 @@ button {
   z-index: 5;
   opacity: 0.08;
   background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px 4px);
+}
+
+.custom-cursor {
+  position: fixed;
+  z-index: 20;
+  left: 0;
+  top: 0;
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(var(--lavender-rgb), 0.9);
+  border-radius: 50%;
+  background: rgba(var(--lavender-rgb), 0.04);
+  box-shadow: 0 0 12px rgba(var(--lavender-rgb), 0.72), inset 0 0 8px rgba(var(--lavender-rgb), 0.12);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-50px, -50px, 0);
+  transition: opacity 0.16s ease;
+}
+
+body.has-custom-cursor .custom-cursor.is-visible {
+  opacity: 1;
 }
 
 .desktop-screen {
@@ -418,15 +444,17 @@ body.desktop-active .terminal-shell {
 
 .profile-output {
   display: grid;
-  grid-template-columns: 180px minmax(0, 1fr);
-  gap: 28px;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: clamp(34px, 5vw, 64px);
   align-items: start;
-  margin-top: 4px;
+  max-width: min(1120px, calc(100vw - 72px));
+  margin-top: clamp(20px, 7vh, 78px);
+  padding-left: clamp(0px, 4vw, 58px);
 }
 
 .avatar-frame {
-  width: 180px;
-  padding: 4px;
+  width: 260px;
+  padding: 6px;
   border: 1px solid rgba(var(--lavender-rgb), 0.38);
   background: rgba(0, 0, 0, 0.5);
 }
@@ -441,6 +469,15 @@ body.desktop-active .terminal-shell {
 
 .profile-data strong {
   color: var(--lavender);
+}
+
+.profile-data {
+  padding-top: 4px;
+  font-size: clamp(1rem, 1.4vw, 1.28rem);
+}
+
+.profile-data p {
+  line-height: 1.82;
 }
 
 .profile-data span {
@@ -699,10 +736,18 @@ body.desktop-active .terminal-shell {
   .profile-output {
     grid-template-columns: 1fr;
     gap: 14px;
+    max-width: none;
+    margin-top: 4px;
+    padding-left: 0;
   }
 
   .avatar-frame {
     width: 140px;
+  }
+
+  .profile-data {
+    padding-top: 0;
+    font-size: inherit;
   }
 
   .comments-form label {
@@ -726,5 +771,11 @@ body.desktop-active .terminal-shell {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@media (pointer: coarse) {
+  .custom-cursor {
+    display: none;
   }
 }
