@@ -1,93 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>pawdazed.</title>
-  <link rel="icon" href="favicon.ico" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>not feelin it rn</title>
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #031c3a;
+      color: #e5ecff;
+      font: 400 1.5rem/1.4 "Helvetica Neue", Arial, sans-serif;
+    }
+  </style>
 </head>
-<body class="site-locked">
-  <canvas class="star-canvas" id="star-canvas" aria-hidden="true"></canvas>
-
-  <div class="session-chip" id="delete-badge" hidden>delete mode</div>
-
-  <div class="entry-screen" id="entry-screen" aria-hidden="false">
-    <button class="entry-screen__button" id="enter-site" type="button">enter</button>
-  </div>
-
-  <main class="page">
-    <section class="hero">
-      <article class="panel hero__copy">
-        <h1>pawdazed</h1>
-        <p class="hero__lede" id="about"></p>
-      </article>
-
-      <article class="panel profile-card">
-        <div class="profile-card__header">
-          <img class="profile-card__avatar" src="profilepicture.png" alt="pawdazed profile picture" />
-          <div class="profile-card__identity">
-            <p class="profile-card__name">pawdazed</p>
-            <p class="profile-card__handle">pawdazed</p>
-          </div>
-        </div>
-
-        <div class="profile-card__badges" aria-label="discord badges">
-          <img src="nitroemerald.png" alt="Nitro badge" />
-          <img src="hypesquadbrilliance.png" alt="HypeSquad Brilliance badge" />
-          <img src="originallyknownbadge.png" alt="Originally Known badge" />
-          <img src="questbadge.png" alt="Quest badge" />
-          <img src="meadowbadge.png" alt="Meadow badge" />
-          <img src="apprenticebadge.png" alt="Active Developer badge" />
-        </div>
-      </article>
-    </section>
-
-    <section class="comments panel">
-      <div class="comments__header">
-        <div>
-          <p class="eyebrow">comments</p>
-          <h2>leave a comment</h2>
-        </div>
-        <p class="section-heading__hint">don't be too weird.</p>
-      </div>
-
-      <form class="comments__form" id="comment-form">
-        <label class="comments__field">
-          <span>nickname</span>
-          <input type="text" id="comment-name" maxlength="32" placeholder="your name" required />
-        </label>
-
-        <label class="comments__field">
-          <span>message</span>
-          <textarea id="comment-message" maxlength="280" rows="4" placeholder="say something..." required></textarea>
-        </label>
-
-        <div class="comments__actions">
-          <button class="comments__submit" type="submit">post comment</button>
-          <p class="comments__status" id="comment-status" aria-live="polite"></p>
-        </div>
-      </form>
-
-      <div class="comments__list" id="comments-list"></div>
-
-      <div class="comments__pagination" id="comments-pagination">
-        <button class="page-button" type="button" id="comments-prev">prev</button>
-        <span class="comments__page" id="comments-page">page 1 of 1</span>
-        <button class="page-button" type="button" id="comments-next">next</button>
-      </div>
-    </section>
-
-    <footer class="footer">pawdazed &copy; 2026</footer>
-  </main>
-
-  <div class="view-count" id="view-count" aria-live="polite">👁 0</div>
-  <button class="music-toggle" id="music-toggle" type="button">mute</button>
-  <audio id="bg-audio" src="A Behemoth, forever raging.mp4" preload="metadata" loop></audio>
-
-  <script src="script.js"></script>
+<body>
+  not feelin it rn
 </body>
 </html>
