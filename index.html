@@ -1,26 +1,149 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>tab open = gay</title>
-  <style>
-    :root {
-      color-scheme: dark;
-    }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #031c3a;
-      color: #e5ecff;
-      font: 400 1.5rem/1.4 "Helvetica Neue", Arial, sans-serif;
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>lavender@orbit:~</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  rework in progress
+<body class="desktop-active">
+  <canvas class="star-canvas" id="star-canvas" aria-hidden="true"></canvas>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <section class="desktop-screen" id="desktop-screen" aria-label="lavender desktop">
+    <div class="desktop-panel">
+      <span>lavender@orbit</span>
+      <div class="desktop-panel-actions">
+        <button class="desktop-music" id="desktop-music-toggle" type="button" aria-pressed="true">music: on</button>
+        <time id="desktop-clock">--:--</time>
+      </div>
+    </div>
+    <div class="desktop-icons">
+      <button class="desktop-icon" id="open-terminal" type="button" aria-label="Open terminal">
+        <span class="app-icon terminal-icon" aria-hidden="true"><b>&gt;_</b></span>
+        <span>terminal</span>
+      </button>
+      <button class="desktop-icon" id="open-changelogs" type="button" aria-label="Open changelogs">
+        <span class="app-icon changelogs-icon" aria-hidden="true"><b>+</b></span>
+        <span>changelogs</span>
+      </button>
+    </div>
+    <p class="desktop-hint">single-click an app to open</p>
+  </section>
+
+  <main class="terminal-shell" id="terminal-shell" aria-label="lavender linux terminal" inert>
+    <button class="app-close terminal-close" id="close-terminal" type="button" aria-label="Close terminal">×</button>
+    <section class="console-panel" aria-label="terminal output">
+      <div class="console-screen" id="console-screen" tabindex="-1">
+        <div class="boot-log" id="terminal-log" aria-live="polite"></div>
+
+        <article class="terminal-view is-active" id="view-home" data-view="home">
+          <p>Last login: <span id="login-time">now</span> from stupidville</p>
+          <p>Type <button class="inline-command" type="button" data-command="help">help</button> to list available commands.</p>
+        </article>
+
+        <article class="terminal-view" id="view-help" data-view="help">
+          <p>Available commands:</p>
+          <div class="command-list">
+            <button type="button" data-command="profile"><span>profile</span><small>display lavender's profile</small></button>
+            <button type="button" data-command="comments"><span>comments</span><small>open the comments (partial larp)</small></button>
+            <button type="button" data-command="music"><span>music</span><small>toggle background music</small></button>
+            <button type="button" data-command="home"><span>home</span><small>return to the login message</small></button>
+            <button type="button" data-command="clear"><span>clear</span><small>clear command history</small></button>
+          </div>
+        </article>
+
+        <article class="terminal-view" id="view-profile" data-view="profile">
+          <div class="profile-output">
+            <div class="avatar-frame">
+              <img src="pfp.jpg" alt="lavender profile picture" />
+            </div>
+            <div class="profile-data">
+              <p><strong>lavender@orbit</strong></p>
+              <p>----------------</p>
+              <p><span>user:</span> lavender</p>
+              <p><span>status:</span> gooning</p>
+              <p><span>length:</span> 8 inches</p>
+              <p><span>interests:</span> sleep, games, sleep, hm.. sleep</p>
+              <p><span>visits:</span> <b id="view-count">syncing...</b></p>
+              <p class="profile-bio">i want to write a bio but im thinkiing really hard like what if its lame and then everyone hates me</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="terminal-view" id="view-comments" data-view="comments">
+          <div class="comments-header">
+            <p>transmissions.log</p>
+            <p id="comment-status" class="comment-status" aria-live="polite"></p>
+          </div>
+
+          <form class="comments-form" id="comment-form">
+            <label>
+              <span>name:</span>
+              <input type="text" id="comment-name" maxlength="32" placeholder="anonymous" required />
+            </label>
+            <label>
+              <span>message:</span>
+              <textarea id="comment-message" maxlength="280" rows="3" placeholder="write a message..." required></textarea>
+            </label>
+            <button class="submit-button" type="submit">submit</button>
+          </form>
+
+          <div class="comments-list" id="comments-list"></div>
+          <div class="comments-pagination" id="comments-pagination">
+            <button class="page-button" type="button" id="comments-prev">prev</button>
+            <span id="comments-page">page 1 / 1</span>
+            <button class="page-button" type="button" id="comments-next">next</button>
+          </div>
+        </article>
+      </div>
+
+      <form class="command-line" id="command-form" autocomplete="off">
+        <label for="command-input">terminal command</label>
+        <span class="prompt"><span class="prompt-user">lavender@orbit</span>:<span class="prompt-path">~</span>$</span>
+        <div class="input-wrap">
+          <input id="command-input" type="text" spellcheck="false" autocomplete="off" aria-label="terminal command input" />
+          <span class="terminal-caret" aria-hidden="true"></span>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <section class="app-overlay" id="changelogs-app" aria-label="changelogs app" aria-hidden="true" inert>
+    <article class="app-window changelogs-window">
+      <header class="app-titlebar">
+        <span>changelogs.txt</span>
+        <button class="app-close" id="close-changelogs" type="button" aria-label="Close changelogs">×</button>
+      </header>
+      <div class="changelog-content">
+        <header class="changelog-heading">
+          <p>lavender@orbit</p>
+          <h1>changelogs</h1>
+          <p>updates</p>
+        </header>
+
+        <article class="changelog-entry">
+          <time datetime="2026-06-08">2026.06.08</time>
+          <div>
+            <h2>yay rework</h2>
+            <p>terminal larpsite yaaay</p>
+          </div>
+        </article>
+
+        <article class="changelog-entry">
+          <time datetime="2026-06-08">2026.06.08</time>
+          <div>
+            <h2>rebrand</h2>
+            <p>pawdazed more like... lavenderpaws...lav..ender..enderoftheuniverse..</p>
+          </div>
+        </article>
+  </section>
+
+  <audio id="bg-audio" src="A Behemoth, forever raging.mp4" preload="metadata" loop></audio>
+  <script src="script.js"></script>
 </body>
 </html>
